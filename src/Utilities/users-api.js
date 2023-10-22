@@ -55,3 +55,19 @@ export async function searchDogBreeds(searchQuery) {
     throw new Error(`Error searching Dog Breed: ${error.message}`);
   }
 }
+
+export async function getDogNames() {
+  try {
+    const response = await fetch(`${DOGBREED_URL}`);
+    
+    if (!response.ok) {
+      throw new Error("Dog Breed search request failed");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error searching Dog Breed: ${error.message}`);
+
+  }
+}

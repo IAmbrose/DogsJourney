@@ -42,18 +42,6 @@ function createJWT(user) {
     );
   }
 
-  // const checkToken = async (req, res) => {
-  //   const authHeader = req.get("Authorization");
-  //   const authHeaderArray = authHeader.split(" ");
-  //   const token = authHeaderArray[1];
-  
-  //   try {
-  //     const decoded = jwt.verify(token, process.env.SECRET);
-  //     res.json({ decoded });
-  //   } catch (err) {
-  //     res.status(401).json({ err });
-  //   }
-  // };
 
   const index = async (req, res) => {
     const users = await User.find({});

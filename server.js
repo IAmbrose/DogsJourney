@@ -6,6 +6,7 @@ const path = require("path");
 const logger = require("morgan");
 const debug = require("debug")("mern:server");
 const usersRouter = require("./routes/api/users")
+const dogBreedsRouter = require("./routes/api/dogBreeds")
 
 //* app
 const app = express();
@@ -15,6 +16,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "dist")));
 app.use("/api/users", usersRouter);
+app.use("/api/dogBreeds", dogBreedsRouter);
 
 
 //* routes

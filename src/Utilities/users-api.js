@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "/api/users";
 const LOGIN_URL = "/api/users/login";
+const DOGBREED_URL = "/api/dogBreeds";
 
 export async function signUp(userData) {
   const res = await fetch(BASE_URL, {
@@ -38,4 +39,19 @@ export function checkToken() {
       Authorization: `Bearer ${token}`,
     },
   });
+}
+
+export async function searchDogBreeds(searchQuery) {
+  try {
+    const response = await fetch(`${DOGBREED_URL}/search/${searchQuery}`);
+
+    if (!response.ok) {
+      throw new Error("Dog Breed search request failed");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error searching Dog Breed: ${error.message}`);
+  }
 }

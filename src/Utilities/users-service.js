@@ -41,3 +41,7 @@ export async function signUp(userData) {
     return data;
   }
   
+  export async function searchDogBreeds(searchQuery) {
+    const searchData = await usersAPI.searchDogBreeds(searchQuery);
+    return searchData;
+  }

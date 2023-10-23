@@ -33,11 +33,9 @@ const dogBreedSchema = new mongoose.Schema(
         },
         coat_length: {
             type: Number,
-            required: true,
         },
         good_with_strangers: {
             type: Number,
-            required: true,
         },
         playfulness: {
             type: Number,
@@ -61,43 +59,33 @@ const dogBreedSchema = new mongoose.Schema(
         },
         min_life_expectancy: {
             type: Number,
-            required: true,
         },
         max_life_expectancy: {
             type: Number,
-            required: true,
         },
         max_height_male: {
             type: Number,
-            required: true,
         },
         max_height_female: {
             type: Number,
-            required: true,
         },
         max_weight_male: {
             type: Number,
-            required: true,
         },
         max_weight_female: {
             type: Number,
-            required: true,
         },
         min_height_male: {
             type: Number,
-            required: true,
         },
         min_height_female: {
             type: Number,
-            required: true,
         },
         min_weight_male: {
             type: Number,
-            required: true,
         },
         min_weight_female: {
             type: Number,
-            required: true,
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const DogCard = ({dogData}) => {
+const DogCard = ({ dogData, onAddToWishList }) => {
   const [showMore, setShowMore] = useState(false)
 
   const toggleShowMore = () => {
@@ -16,7 +16,7 @@ const DogCard = ({dogData}) => {
             {showMore ? 'See Less' : 'See More Characteristics'}
           </button>
         </p>
-
+        
         {showMore && (
           <>
             <p>Good with Children: {dogData.good_with_children}</p>
@@ -31,6 +31,7 @@ const DogCard = ({dogData}) => {
             <p>Barking: {dogData.barking}</p>
           </>
         )}
+        <button onClick={onAddToWishList}>Add to Wishlist</button>
     </div>
   )
 }

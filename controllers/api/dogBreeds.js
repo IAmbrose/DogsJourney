@@ -47,7 +47,7 @@ const getAllDogBreedList = async (req, res) => {
   }
 };
 
-const addDog = async (req, res) => {
+const addDogToWishList = async (req, res) => {
   const dogData = req.body; 
   const user = res.locals.user; 
 
@@ -59,9 +59,20 @@ const addDog = async (req, res) => {
   }
 };
 
+const getAllDogFromWishList = async (req, res) => {
+  const user = res.locals.user;
+
+  try {
+    const dogsInWishList = await DogBreed.find({ user: user });
+    res.status(200).json(dogsInWishList);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   getDogData,
   getAllDogBreedList,
-  addDog
+  addDogToWishList,
+  getAllDogFromWishList
 }

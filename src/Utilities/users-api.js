@@ -58,7 +58,7 @@ export async function searchDogBreeds(searchQuery) {
 
 export async function getDogNames() {
   try {
-    const response = await fetch(`${DOGBREED_URL}`);
+    const response = await fetch(`${DOGBREED_URL}/list`);
     
     if (!response.ok) {
       throw new Error("Dog Breed search request failed");
@@ -69,5 +69,57 @@ export async function getDogNames() {
   } catch (error) {
     throw new Error(`Error searching Dog Breed: ${error.message}`);
 
+  }
+}
+
+export async function addDogToWishList(dogData) {
+  try {
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGBREED_URL}/wishlist`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(dogData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error adding dog to the wishlist");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error adding dog to the wishlist: ${error.message}`,
+    );
+  }
+}
+
+export async function getAllDogFromWishList() {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGBREED_URL}/wishlist`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching dog from the wishlist");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching dog from the wishlist: ${error.message}`,
+    );
   }
 }

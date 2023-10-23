@@ -50,3 +50,14 @@ export async function signUp(userData) {
     const data = await usersAPI.getDogNames();
     return data;
   }
+
+  export async function addDogToWishList(dogData) {
+    const addedDog = await usersAPI.addDogToWishList(dogData);
+    return addedDog;
+}
+
+
+export async function getAllDogFromWishList() {
+  const data = await usersAPI.getAllDogFromWishList();
+  return data;
+}

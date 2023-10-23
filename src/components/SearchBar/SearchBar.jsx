@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import {searchDogBreeds, getDogNames} from "../../Utilities/users-service"
+import {searchDogBreeds, getDogNames, addDogToWishList} from "../../Utilities/users-service"
 import DogCard from '../DogCard/DogCard';
+import WishListPage from '../../pages/WishListPage/WishListPage';
 
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [dogBreeds, setDogBreeds] = useState([]);
+    const [wishList, setWishList] = useState([]);
 
     useEffect(() => {
         const fetchDogBreeds = async () => {
@@ -31,6 +33,17 @@ const SearchBar = () => {
             console.error(error.message);
         }
     }
+
+    const handleAddToWishList = async (dogData) => {
+        try {
+          const addedDog = await addDogToWishList(dogData);
+          if (addedDog) {
+            setWishList([...wishList, addedDog]);
+          }
+        } catch (error) {
+          console.error("Error adding dog to wishlist:", error.message);
+        }
+      }
   return (
     <div>
         <input
@@ -56,9 +69,13 @@ const SearchBar = () => {
                 <DogCard 
                     key={index}
                     dogData={result}
-                    />
+                    onAddToWishList={() => handleAddToWishList(result)}
+                />
             ))}
         </div>
+        <WishListPage 
+        wishList={wishList} 
+        />
     </div>
   )
 }

@@ -1,11 +1,14 @@
 import { useState } from 'react'
 
-const DogCard = ({ dogData, onAddToWishList }) => {
+const DogCard = ({ searchResult, wishListData, onAddToWishList, showAddToWishList, showDeleteFromWishList, onDeleteFromWishList }) => {
   const [showMore, setShowMore] = useState(false)
 
   const toggleShowMore = () => {
     setShowMore(!showMore);
   }
+
+  const dogData = wishListData || searchResult;
+
   return (
     <div>
         <img src={dogData.image_link} alt={dogData.name} />
@@ -31,7 +34,12 @@ const DogCard = ({ dogData, onAddToWishList }) => {
             <p>Barking: {dogData.barking}</p>
           </>
         )}
-        <button onClick={onAddToWishList}>Add to Wishlist</button>
+        {showAddToWishList && (
+          <button onClick={onAddToWishList}>Add to Wishlist</button>
+        )}
+        {showDeleteFromWishList && (
+          <button onClick={() => onDeleteFromWishList(wishListData._id)}>Delete From WishList</button>
+        )}
     </div>
   )
 }

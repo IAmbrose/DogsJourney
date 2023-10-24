@@ -61,3 +61,8 @@ export async function getAllDogFromWishList() {
   const data = await usersAPI.getAllDogFromWishList();
   return data;
 }
+
+export async function deleteDogFromWishList(dogId) {
+  const data = await usersAPI.deleteDogFromWishList(dogId);
+  return data;
+}

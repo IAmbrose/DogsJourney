@@ -10,7 +10,6 @@ export default function NavBar ({ user, setUser }) {
       }
     return (
         <nav>
-            <Link to="/wishlist">WishList</Link>
             <Link to="/">MainPage</Link>
             <p>Welcome, {user.name}</p>
             <Link to="" onClick={handleLogOut}>

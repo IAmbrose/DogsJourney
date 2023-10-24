@@ -64,7 +64,29 @@ const getAllDogFromWishList = async (req, res) => {
 
   try {
     const dogsInWishList = await DogBreed.find({ user: user });
+    if (!dogsInWishList) {
+      return res.status(404).json({ message: 'Dogs not found in your wish list.' });
+    }
     res.status(200).json(dogsInWishList);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteDogFromWishList = async (req, res) => {
+  const user = res.locals.user;
+  const dogId = req.params.dogId;
+
+  try{
+    const dogToDelete = await DogBreed.findOneAndDelete({
+      _id: dogId,
+      user: user._id,
+    });
+    if (!dogToDelete) {
+      return res.status(404).json({ message: 'Dog not found in your wish list.' });
+    }
+
+    res.status(200).json({ message: 'Dog removed from your wish list.' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -74,5 +96,6 @@ module.exports = {
   getDogData,
   getAllDogBreedList,
   addDogToWishList,
-  getAllDogFromWishList
+  getAllDogFromWishList,
+  deleteDogFromWishList
 }

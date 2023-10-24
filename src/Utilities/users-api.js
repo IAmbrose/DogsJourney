@@ -123,3 +123,27 @@ export async function getAllDogFromWishList() {
     );
   }
 }
+
+export async function deleteDogFromWishList(dogId) {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGBREED_URL}/wishlist/${dogId}`,
+    {
+      method: "DELETE",
+      headers
+    });
+    if(!response.ok) {
+      throw new Error("Error deleting dog from wishlist");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error deleting dog from the wishlist: ${error.message}`)
+  }
+}

@@ -8,6 +8,7 @@ router.get("/search/:name", dogBreedsCtrl.getDogData);
 router.get("/list", dogBreedsCtrl.getAllDogBreedList);
 router.post("/wishlist", checkToken, dogBreedsCtrl.addDogToWishList);
 router.get("/wishlist", checkToken, dogBreedsCtrl.getAllDogFromWishList);
+router.delete("/wishlist/:dogId", checkToken, dogBreedsCtrl.deleteDogFromWishList);
 
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {searchDogBreeds, getDogNames, addDogToWishList} from "../../Utilities/users-service"
+import {searchDogBreeds, getDogNames, addDogToWishList } from "../../Utilities/users-service"
 import DogCard from '../DogCard/DogCard';
 import WishListPage from '../../pages/WishListPage/WishListPage';
 
@@ -44,6 +44,7 @@ const SearchBar = () => {
           console.error("Error adding dog to wishlist:", error.message);
         }
       }
+
   return (
     <div>
         <input
@@ -68,13 +69,15 @@ const SearchBar = () => {
             {searchResults.map((result, index) => (
                 <DogCard 
                     key={index}
-                    dogData={result}
+                    searchResult={result}
                     onAddToWishList={() => handleAddToWishList(result)}
+                    showAddToWishList={true}
                 />
             ))}
         </div>
         <WishListPage 
         wishList={wishList} 
+        setWishList={setWishList}
         />
     </div>
   )

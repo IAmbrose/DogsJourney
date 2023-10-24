@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../Utilities/users-service";
 import MainPage from "../MainPage/MainPage";
+import MemoryPage from "../MemoryPage/MemoryPage";
 
 
 
@@ -18,6 +19,7 @@ export default function App() {
             <NavBar user={user} setUser={setUser}/>
             <Routes>
               <Route path="/" element={<MainPage />} />
+              <Route path="/memory"element={<MemoryPage />} />
             </Routes>
           </>
         ) : (

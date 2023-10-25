@@ -109,6 +109,77 @@ const deleteMemory = async (req, res) => {
     }
   };
 
+  const deleteComment = async (req, res) => {
+    const memoryId = req.params.memoryId;
+    const commentId = req.params.commentId;
+    const user = res.locals.user; 
+  
+    try {
+      const memory = await Memory.findById(memoryId).populate("comments.user");
+  
+      if (!memory) {
+        return res.status(404).json({ error: "Attraction not found" });
+      }
+  
+      const comment = memory.comments.find((comment) => comment._id.equals(commentId));
+  
+      if (!comment) {
+        return res.status(404).json({ error: "Comment not found" });
+      }
+  
+      if (!comment.user.equals(user._id)) {
+        return res.status(403).json({ error: "Unauthorized. You can only delete your own comments." });
+      }
+  
+      const index = memory.comments.indexOf(comment);
+      memory.comments.splice(index, 1);
+  
+      // Save the updated attraction
+      await memory.save();
+  
+      return res.status(200).json({ success: "Comment deleted successfully!" });
+    } catch (error) {
+      return res.status(500).json({
+        error: "Something went wrong when deleting the comment",
+      });
+    }
+  };
+  
+  const updateComment = async (req, res) => {
+    const memoryId = req.params.memoryId;
+    const commentId = req.params.commentId;
+    const user = res.locals.user;
+  
+    try {
+      const memory = await Memory.findById(memoryId).populate("comments.user");
+  
+      if (!memory) {
+        return res.status(404).json({ error: "Memory not found" });
+      }
+  
+      const comment = memory.comments.find((comment) => comment._id.equals(commentId));
+  
+      if (!comment) {
+        return res.status(404).json({ error: "Comment not found" });
+      }
+  
+      if (!comment.user._id.equals(user._id)) {
+        return res.status(403).json({ error: "Unauthorized. You can only update your own comments." });
+      }
+  
+      comment.text = req.body.text;
+  
+      await memory.save();
+  
+      return res.status(200).json({ text: comment.text });
+    } catch (error) {
+      console.error("Error:", error);
+      return res.status(500).json({
+        error: "Something went wrong when updating the comment",
+      });
+    }
+  };
+  
 
 module.exports = {
     getMemories,
@@ -116,5 +187,7 @@ module.exports = {
     deleteMemory,
     updateMemory,
     addComment,
-    getComments
+    getComments,
+    deleteComment,
+    updateComment
 }

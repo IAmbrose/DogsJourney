@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const MemoryCard = ({ memory, onDeleteMemory, onEditMemory }) => {
+const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedMemoryText, setEditedMemoryText] = useState(memory.text);
 
@@ -8,17 +8,18 @@ const MemoryCard = ({ memory, onDeleteMemory, onEditMemory }) => {
         onDeleteMemory(memory._id);
     }
 
-    const handleEdit = () => {
+    
+      const handleStartEdit = () => {
         setIsEditing(true);
-    }
-
-    const handleConfirmEdit = () => {
-        onEditMemory(memory._id, { text: editedMemoryText} );
+      }
+    
+      const handleConfirmEdit = () => {
+        onConfirmEdit(memory._id, editedMemoryText);
         setIsEditing(false);
-    };
+      };
   return (
     <div>
-      {isEditing ? (
+      {isEditing || editedMemoryId === memory._id ? (
         <div>
           <textarea
             value={editedMemoryText}
@@ -27,17 +28,17 @@ const MemoryCard = ({ memory, onDeleteMemory, onEditMemory }) => {
           <button onClick={handleConfirmEdit}>Save Edit</button>
         </div>
       ) : (
-    <div>
-        <div>{memory.text}</div>
-        <div>{memory.user.name}</div>
         <div>
+          <div>{memory.text}</div>
+          <div>{memory.user.name}</div>
+          <div>
             <img src={memory.image} alt='Memory Image' />
+          </div>
+          <button onClick={handleDelete}>Delete</button>
+          <button onClick={handleStartEdit}>Edit</button>
         </div>
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={handleEdit}>Edit</button>
+      )}
     </div>
-    )}
-</div>
   )
 }
 

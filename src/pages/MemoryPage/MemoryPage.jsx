@@ -5,6 +5,7 @@ import AddMemoryForm from './AddMemoryForm';
 
 const MemoryPage = () => {
   const [memories, setMemories] = useState([]);
+  const [editedMemoryId, setEditedMemoryId] = useState(null)
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -39,18 +40,19 @@ const MemoryPage = () => {
     }
   }
 
-  const handleEditMemory = async (memoryId, updatedText) => {
+  const handleConfirmEdit = async (memoryId, updatedText) => {
+    if (updatedText.trim() === "") {
+      console.error('Edited text cannot be empty');
+      return;
+    }
+
     try {
-      await updateMemory(memoryId, { text: updatedText});
-      const updatedMemories = memories.map((memory => {
-        if (memory._id === memoryId) {
-          return {...memory, text: updatedText};
-        }
-        return memory;
-      }))
+      await updateMemory(memoryId, updatedText);
+      const updatedMemories = await getAllMemories();
       setMemories(updatedMemories);
+      setEditedMemoryId(null); 
     } catch (error) {
-      console.error('Error editting memory:', error);
+      console.error('Error editing memory:', error);
     }
   }
 
@@ -65,7 +67,8 @@ const MemoryPage = () => {
           key={memory._id} 
           memory={memory}
           onDeleteMemory={handleDeleteMemory}
-          onEditMemory={handleEditMemory}
+          editedMemoryId={editedMemoryId} 
+          onConfirmEdit={handleConfirmEdit}
           />
         ))}
       </div>

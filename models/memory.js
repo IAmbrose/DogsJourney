@@ -18,6 +18,18 @@ const commentSchema = new mongoose.Schema(
     }
   );
 
+const likeSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: User,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const memorySchema = new mongoose.Schema(
     {
@@ -34,12 +46,7 @@ const memorySchema = new mongoose.Schema(
             type: String,
         },
         comments: [commentSchema],
-        likes: [
-            {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: User,
-            },
-          ],
+        likes: [likeSchema],
     },
     {
         timestamps: true,

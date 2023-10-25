@@ -180,6 +180,37 @@ const deleteMemory = async (req, res) => {
     }
   };
   
+  const likeMemory = async (req, res) => {
+    const memoryId = req.params.memoryId;
+    const user = res.locals.user;
+  
+    try {
+      const memory = await Memory.findById(memoryId);
+  
+      if (!memory) {
+        return res.status(404).json({ error: "Memory not found" });
+      }
+
+      const existingLike = memory.likes.find((like) => like.user.equals(user._id));
+  
+      if (existingLike) {
+        memory.likes = memory.likes.filter((like) => !like.user.equals(user._id));
+      } else {
+        memory.likes.push({ user: user._id });
+      }
+  
+      await memory.save();
+  
+      return res.status(200).json({ likes: memory.likes });
+    } catch (error) {
+      console.error("Error:", error); 
+      return res.status(500).json({
+        error: "Something went wrong when liking the memory",
+      });
+    }
+  };
+
+
 
 module.exports = {
     getMemories,
@@ -189,5 +220,6 @@ module.exports = {
     addComment,
     getComments,
     deleteComment,
-    updateComment
+    updateComment,
+    likeMemory
 }

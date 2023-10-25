@@ -54,15 +54,35 @@ export async function signUp(userData) {
   export async function addDogToWishList(dogData) {
     const addedDog = await usersAPI.addDogToWishList(dogData);
     return addedDog;
-}
+  }
 
 
-export async function getAllDogFromWishList() {
-  const data = await usersAPI.getAllDogFromWishList();
-  return data;
-}
+  export async function getAllDogFromWishList() {
+    const data = await usersAPI.getAllDogFromWishList();
+    return data;
+  }
 
-export async function deleteDogFromWishList(dogId) {
-  const data = await usersAPI.deleteDogFromWishList(dogId);
-  return data;
-}
+  export async function deleteDogFromWishList(dogId) {
+    const data = await usersAPI.deleteDogFromWishList(dogId);
+    return data;
+  }
+
+  export async function getAllMemories() {
+    const data = await usersAPI.getAllMemories();
+    return data;
+  }
+
+  export async function addMemory(memoryData) {
+    const addedMemory = await usersAPI.addMemory(memoryData);
+    return addedMemory;
+  }
+
+  export async function deleteMemory(memoryId) {
+    const data = await usersAPI.deleteMemory(memoryId);
+    return data;
+  }
+
+  export async function updateMemory(memoryId, updatedText) {
+    const updatedMemory = await usersAPI.updateMemory(memoryId, updatedText);
+    return updatedMemory;
+  }

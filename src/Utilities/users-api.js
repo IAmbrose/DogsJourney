@@ -3,6 +3,7 @@ import axios from "axios";
 const BASE_URL = "/api/users";
 const LOGIN_URL = "/api/users/login";
 const DOGBREED_URL = "/api/dogBreeds";
+const MEMORIES_URL = "/api/memories";
 
 export async function signUp(userData) {
   const res = await fetch(BASE_URL, {
@@ -145,5 +146,110 @@ export async function deleteDogFromWishList(dogId) {
     return data;
   } catch (error) {
     throw new Error(`Error deleting dog from the wishlist: ${error.message}`)
+  }
+}
+
+export async function getAllMemories() {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${MEMORIES_URL}`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching memories");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching dog from the wishlist: ${error.message}`,
+    );
+  }
+}
+
+export async function addMemory(memoryData) {
+  try {
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${MEMORIES_URL}`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(memoryData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error adding memory");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error adding memory: ${error.message}`,
+    );
+  }
+}
+
+
+export async function deleteMemory(memoryId) {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${MEMORIES_URL}/${memoryId}`,
+    {
+      method: "DELETE",
+      headers
+    });
+    if(!response.ok) {
+      throw new Error("Error deleting memory");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error deleting memory: ${error.message}`)
+  }
+}
+
+export async function updateMemory(memoryId, updatedText) {
+  try {
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `${MEMORIES_URL}/${memoryId}`,
+      {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({ text: updatedText }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("Error updating review");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error updating review: ${error.message}`);
   }
 }

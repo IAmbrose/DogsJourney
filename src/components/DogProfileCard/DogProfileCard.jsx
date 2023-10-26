@@ -1,6 +1,14 @@
-import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const DogProfileCard = ({ dogProfile }) => {
+const DogProfileCard = ({ allUserDogProfile, currentUserDogProfile }) => {
+    const navigate = useNavigate();
+
+    const handleViewMemories = (userId) => {
+        navigate(`/memory/${userId}`);
+      };
+
+      const dogProfile = allUserDogProfile || currentUserDogProfile;
+
   return (
     <div>
         <div>
@@ -10,6 +18,7 @@ const DogProfileCard = ({ dogProfile }) => {
         <h2>{dogProfile.name}</h2>
         <p>{dogProfile.description}</p>
         <p>Owner: {dogProfile.user.name}</p>
+        <button onClick={() => handleViewMemories(dogProfile.user)}>See Memories</button>
       </div>
     </div>
   )

@@ -72,6 +72,11 @@ export async function signUp(userData) {
     return data;
   }
 
+  export async function getMemoriesByUser(userId) {
+    const data = await usersAPI.getMemoriesByUser(userId);
+    return data;
+  }
+
   export async function addMemory(memoryData) {
     const addedMemory = await usersAPI.addMemory(memoryData);
     return addedMemory;

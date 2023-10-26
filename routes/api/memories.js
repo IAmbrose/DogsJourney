@@ -4,6 +4,7 @@ const memoriesCtrl = require("../../controllers/api/memories");
 const { checkToken } = require("../../config/checkToken");
 
 router.get("/", checkToken, memoriesCtrl.getMemories)
+router.get("/:userId", checkToken, memoriesCtrl.getMemoriesByUser)
 router.post("/", checkToken, memoriesCtrl.addMemory)
 router.delete("/:memoryId", checkToken, memoriesCtrl.deleteMemory)
 router.patch("/:memoryId", checkToken, memoriesCtrl.updateMemory)

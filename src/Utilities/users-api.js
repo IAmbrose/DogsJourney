@@ -175,6 +175,32 @@ export async function getAllMemories() {
   }
 }
 
+export async function getMemoriesByUser(userId) {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${MEMORIES_URL}/${userId}`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching memories");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching dog from the wishlist: ${error.message}`,
+    );
+  }
+}
+
+
 export async function addMemory(memoryData) {
   try {
     const token = localStorage.getItem("token")

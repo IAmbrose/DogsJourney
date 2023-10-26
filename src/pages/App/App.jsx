@@ -6,6 +6,7 @@ import { getUser } from "../../Utilities/users-service";
 import MainPage from "../MainPage/MainPage";
 import MemoryPage from "../MemoryPage/MemoryPage";
 import DogProfilePage from "../DogProfilePage/DogProfilePage";
+import UserMemoryPage from "../MemoryPage/UserMemoryPage";
 
 
 
@@ -23,6 +24,7 @@ export default function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/memory" element={<MemoryPage user={user}/>} />
               <Route path="/dogprofiles" element={<DogProfilePage />} />
+              <Route path="/memory/:userId" element={<UserMemoryPage />} />
             </Routes>
           </>
         ) : (

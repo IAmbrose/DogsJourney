@@ -3,13 +3,13 @@ import { getAllDogProfile } from '../../Utilities/users-service'
 import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
 
 const DogProfilePage = () => {
-    const [dogProfiles, setDogProfiles] = useState([]);
+    const [allUserDogProfiles, setAllUserDogProfiles] = useState([]);
 
     useEffect(() => {
         async function fetchDogProfiles() {
           try {
             const data = await getAllDogProfile();
-            setDogProfiles(data);
+            setAllUserDogProfiles(data);
           } catch (error) {
             console.error('Error fetching dog profiles:', error);
           }
@@ -20,10 +20,10 @@ const DogProfilePage = () => {
   return (
     <div>
         <h1>DogProfilePage</h1>
-        {dogProfiles.map((dogProfile) => (
+        {allUserDogProfiles.map((allUserDogProfile) => (
             <DogProfileCard
-                key={dogProfile._id}
-                dogProfile={dogProfile}
+                key={allUserDogProfile._id}
+                allUserDogProfile={allUserDogProfile}
                 />
         ))}
     </div>

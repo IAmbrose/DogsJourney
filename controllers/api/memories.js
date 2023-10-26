@@ -210,7 +210,19 @@ const deleteMemory = async (req, res) => {
     }
   };
 
-
+  const getMemoriesByUser = async (req, res) => {
+    const userId = req.params.userId
+  
+    try {
+      const memories = await Memory.find({ user: userId })
+      if (!memories) {
+        return res.status(404).json({ message: 'Memories not found for this user.' });
+      }
+      res.status(200).json(memories);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 
 module.exports = {
     getMemories,
@@ -221,5 +233,6 @@ module.exports = {
     getComments,
     deleteComment,
     updateComment,
-    likeMemory
+    likeMemory,
+    getMemoriesByUser
 }

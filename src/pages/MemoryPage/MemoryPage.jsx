@@ -1,12 +1,28 @@
 import { useEffect, useState } from 'react'
-import { getAllMemories, deleteMemory, updateMemory } from '../../Utilities/users-service'
+import { getAllMemories, deleteMemory, updateMemory, getDogProfile } from '../../Utilities/users-service'
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
 import AddMemoryForm from './AddMemoryForm';
+import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
+import AddDogProfileForm from '../DogProfilePage/AddDogProfileForm';
 
-const MemoryPage = ({ user }) => {
+const MemoryPage = () => {
   const [memories, setMemories] = useState([]);
   const [editedMemoryId, setEditedMemoryId] = useState(null)
-  const currentUser = user._id
+  const [currentUserDogProfiles, setCurrentUserDogProfiles] = useState([])
+  const [showAddDogProfileForm, setShowAddDogProfileForm] = useState(false)
+
+  useEffect(() => {
+    const fetchDogProfile = async () => {
+      try {
+        const data = await getDogProfile();
+        setCurrentUserDogProfiles(data);
+      } catch (error) {
+        console.error('Error fetching dog profile:', error);
+      }
+    };
+    fetchDogProfile();
+  }, [])
+
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -57,14 +73,41 @@ const MemoryPage = ({ user }) => {
     }
   }
 
+  const handleDogProfileAdded = async () => {
+    try {
+      const data = await getDogProfile();
+      setCurrentUserDogProfiles(data);
+    } catch (error) {
+      console.error('Error fetching dog profile:', error);
+    }
+  };
+
+
+
+  const toggleAddDogProfileForm = () => {
+    setShowAddDogProfileForm(!showAddDogProfileForm);
+  };
+
   return (
     <div>
+      <div>
+        {currentUserDogProfiles.map((currentUserDogProfile) => (
+          <DogProfileCard
+          key={currentUserDogProfile._id}
+          currentUserDogProfile={currentUserDogProfile}
+          />
+          ))}
+      </div>
+      <button onClick={toggleAddDogProfileForm}>Add Dog Profile</button> 
+        {showAddDogProfileForm && (
+          <AddDogProfileForm
+            onDogProfileAdded={handleDogProfileAdded} />
+        )}
       <h1>MemoryPage</h1>
 
       <div>
         <AddMemoryForm 
         onMemoryAdded={handleMemoryAdded}
-        currentUser={currentUser} 
         />
         {memories.map((memory) => (
           <MemoryCard 

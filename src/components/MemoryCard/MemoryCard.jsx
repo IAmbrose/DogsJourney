@@ -23,6 +23,8 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
       onConfirmEdit(memory._id, editedMemoryText);
       setIsEditing(false);
     };
+
+
   return (
     <div>
       {isEditing || editedMemoryId === memory._id ? (
@@ -35,11 +37,11 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
         </div>
       ) : (
         <div>
-          <div>{memory.text}</div>
-          <div>{memory.user.name}</div>
           <div>
             <img src={memory.image} alt='Memory Image' />
           </div>
+          <div>{memory.user.name}</div>
+          <div>{memory.text}</div>
           <button onClick={handleDelete}>Delete</button>
           {deleteConfirmation && (
           <div>

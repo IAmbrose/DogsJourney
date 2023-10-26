@@ -4,7 +4,7 @@ const getMemories = async (req, res) => {
     const user = res.locals.user;
   
     try {
-      const memories = await Memory.find({ user: user });
+      const memories = await Memory.find({ user: user }).populate('user');
       if (!memories) {
         return res.status(404).json({ message: 'Memories not found.' });
       }
@@ -214,7 +214,7 @@ const deleteMemory = async (req, res) => {
     const userId = req.params.userId
   
     try {
-      const memories = await Memory.find({ user: userId })
+      const memories = await Memory.find({ user: userId }).populate('user');
       if (!memories) {
         return res.status(404).json({ message: 'Memories not found for this user.' });
       }

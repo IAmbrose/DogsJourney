@@ -14,7 +14,7 @@ const addDogProfile = async (req, res) => {
 
   const getAllDogProfiles = async (req, res) => {
     try {
-      const dogProfiles = await DogProfile.find();
+      const dogProfiles = await DogProfile.find().populate('user');
       if (!dogProfiles) {
         return res.status(404).json({ message: 'Profile not found.' });
       }
@@ -28,9 +28,9 @@ const addDogProfile = async (req, res) => {
     const user = res.locals.user;
   
     try {
-      const dogProfile = await DogProfile.find({ user: user });
+      const dogProfile = await DogProfile.find({ user: user }).populate('user');
       if (!dogProfile) {
-        return res.status(404).json({ message: 'Memories not found.' });
+        return res.status(404).json({ message: 'Profile not found.' });
       }
       res.status(200).json(dogProfile);
     } catch (error) {

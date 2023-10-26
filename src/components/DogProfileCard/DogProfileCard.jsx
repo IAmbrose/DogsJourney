@@ -18,7 +18,7 @@ const DogProfileCard = ({ allUserDogProfile, currentUserDogProfile }) => {
         <h2>{dogProfile.name}</h2>
         <p>{dogProfile.description}</p>
         <p>Owner: {dogProfile.user.name}</p>
-        <button onClick={() => handleViewMemories(dogProfile.user)}>See Memories</button>
+        <button onClick={() => handleViewMemories(dogProfile.user._id)}>See Memories</button>
       </div>
     </div>
   )

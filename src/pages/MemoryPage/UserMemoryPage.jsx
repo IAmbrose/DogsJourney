@@ -21,6 +21,8 @@ const UserMemoryPage = () => {
     fetchMemories();
   }, [userId]);
 
+  console.log(userId)
+
   return (
     <div>
       <h1>Memories for User</h1>

@@ -170,7 +170,7 @@ export async function getAllMemories() {
     return data;
   } catch (error) {
     throw new Error(
-      `Error fetching dog from the wishlist: ${error.message}`,
+      `Error fetching memories: ${error.message}`,
     );
   }
 }
@@ -195,7 +195,7 @@ export async function getMemoriesByUser(userId) {
     return data;
   } catch (error) {
     throw new Error(
-      `Error fetching dog from the wishlist: ${error.message}`,
+      `Error fetching memories: ${error.message}`,
     );
   }
 }

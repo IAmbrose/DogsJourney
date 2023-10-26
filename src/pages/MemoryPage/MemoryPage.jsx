@@ -9,6 +9,7 @@ const MemoryPage = () => {
   const [memories, setMemories] = useState([]);
   const [editedMemoryId, setEditedMemoryId] = useState(null)
   const [currentUserDogProfiles, setCurrentUserDogProfiles] = useState([])
+  const [showAddMemoryForm, setShowAddMemoryForm] = useState(false)
   const [showAddDogProfileForm, setShowAddDogProfileForm] = useState(false)
 
   useEffect(() => {
@@ -47,6 +48,10 @@ const MemoryPage = () => {
     }
   };
 
+  const toggleAddMemoryForm = () => {
+    setShowAddMemoryForm(!showAddMemoryForm);
+  }
+
   const handleDeleteMemory = async (memoryId) => {
     try {
       await deleteMemory(memoryId);
@@ -83,7 +88,6 @@ const MemoryPage = () => {
   };
 
 
-
   const toggleAddDogProfileForm = () => {
     setShowAddDogProfileForm(!showAddDogProfileForm);
   };
@@ -98,7 +102,9 @@ const MemoryPage = () => {
           />
           ))}
       </div>
-      <button onClick={toggleAddDogProfileForm}>Add Dog Profile</button> 
+      {currentUserDogProfiles.length === 0 && (
+        <button onClick={toggleAddDogProfileForm}>Add Dog Profile</button>
+      )}
         {showAddDogProfileForm && (
           <AddDogProfileForm
             onDogProfileAdded={handleDogProfileAdded} />
@@ -106,9 +112,12 @@ const MemoryPage = () => {
       <h1>MemoryPage</h1>
 
       <div>
+        <button onClick={toggleAddMemoryForm}>Add Memory</button> {/* Button to toggle the "Add Memory" form */}
+        {showAddMemoryForm && (
         <AddMemoryForm 
         onMemoryAdded={handleMemoryAdded}
         />
+        )}
         {memories.map((memory) => (
           <MemoryCard 
           key={memory._id} 

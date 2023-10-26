@@ -59,7 +59,7 @@ const MemoryPage = ({ user }) => {
 
   return (
     <div>
-      <h1>{user.name} MemoryPage</h1>
+      <h1>MemoryPage</h1>
 
       <div>
         <AddMemoryForm 

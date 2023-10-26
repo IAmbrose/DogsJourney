@@ -24,7 +24,22 @@ const addDogProfile = async (req, res) => {
     }
   };
 
+  const getDogProfile = async (req, res) => {
+    const user = res.locals.user;
+  
+    try {
+      const dogProfile = await DogProfile.find({ user: user });
+      if (!dogProfile) {
+        return res.status(404).json({ message: 'Memories not found.' });
+      }
+      res.status(200).json(dogProfile);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
   module.exports = {
     addDogProfile,
-    getAllDogProfiles
+    getAllDogProfiles,
+    getDogProfile
   }

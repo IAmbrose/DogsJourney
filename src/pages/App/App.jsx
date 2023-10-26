@@ -5,6 +5,8 @@ import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../Utilities/users-service";
 import MainPage from "../MainPage/MainPage";
 import MemoryPage from "../MemoryPage/MemoryPage";
+import DogProfilePage from "../DogProfilePage/DogProfilePage";
+
 
 
 
@@ -20,6 +22,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/memory" element={<MemoryPage user={user}/>} />
+              <Route path="/dogprofiles" element={<DogProfilePage />} />
             </Routes>
           </>
         ) : (

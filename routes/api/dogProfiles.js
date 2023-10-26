@@ -5,8 +5,8 @@ const { checkToken } = require("../../config/checkToken");
 
 // POST /api/users
 router.post("/", checkToken, dogProfilesCtrl.addDogProfile);
-router.get("/", dogProfilesCtrl.getAllDogProfiles)
-
+router.get("/all", dogProfilesCtrl.getAllDogProfiles)
+router.get("/", checkToken, dogProfilesCtrl.getDogProfile);
 
 
 module.exports = router;

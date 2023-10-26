@@ -4,6 +4,7 @@ const BASE_URL = "/api/users";
 const LOGIN_URL = "/api/users/login";
 const DOGBREED_URL = "/api/dogBreeds";
 const MEMORIES_URL = "/api/memories";
+const DOGPROFILE_URL = "/api/dogProfiles"
 
 export async function signUp(userData) {
   const res = await fetch(BASE_URL, {
@@ -251,5 +252,78 @@ export async function updateMemory(memoryId, updatedText) {
     return data;
   } catch (error) {
     throw new Error(`Error updating review: ${error.message}`);
+  }
+}
+
+export async function getDogProfile() {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGPROFILE_URL}`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching dog profile");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching dog profile: ${error.message}`,
+    );
+  }
+}
+
+export async function getAllDogProfile() {
+  try{
+    const response = await fetch(`${DOGPROFILE_URL}/all`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching dog profiles");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching dog profiles: ${error.message}`,
+    );
+  }
+}
+
+export async function addDogProfile(dogProfileData) {
+  try {
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGPROFILE_URL}`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(dogProfileData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error adding dog profile");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error adding dog profile: ${error.message}`,
+    );
   }
 }

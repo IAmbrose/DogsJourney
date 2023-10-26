@@ -86,3 +86,18 @@ export async function signUp(userData) {
     const updatedMemory = await usersAPI.updateMemory(memoryId, updatedText);
     return updatedMemory;
   }
+
+  export async function getDogProfile() {
+    const data = await usersAPI.getDogProfile();
+    return data;
+  }
+
+  export async function getAllDogProfile() {
+    const data = await usersAPI.getAllDogProfile();
+    return data;
+  }
+
+  export async function addDogProfile(dogProfileData) {
+    const addedDogProfile = await usersAPI.addDogProfile(dogProfileData);
+    return addedDogProfile;
+  }

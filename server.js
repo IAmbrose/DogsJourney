@@ -7,7 +7,8 @@ const logger = require("morgan");
 const debug = require("debug")("mern:server");
 const usersRouter = require("./routes/api/users")
 const dogBreedsRouter = require("./routes/api/dogBreeds")
-const memoriesRouter = require("./routes/api/memories")
+const memoriesRouter = require("./routes/api/memories");
+const dogProfilesRouter = require("./routes/api/dogProfiles")
 
 //* app
 const app = express();
@@ -18,7 +19,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "dist")));
 app.use("/api/users", usersRouter);
 app.use("/api/dogBreeds", dogBreedsRouter);
-app.use("/api/memories", memoriesRouter)
+app.use("/api/memories", memoriesRouter);
+app.use("/api/dogProfiles", dogProfilesRouter);
 
 
 

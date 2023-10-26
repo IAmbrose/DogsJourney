@@ -3,20 +3,26 @@ import { useState } from "react";
 const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedMemoryText, setEditedMemoryText] = useState(memory.text);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
     const handleDelete = () => {
-        onDeleteMemory(memory._id);
+      setDeleteConfirmation(true)
+    }
+
+    const handleConfirmDelete = () => {
+      onDeleteMemory(memory._id);
+      setDeleteConfirmation(false);
     }
 
     
-      const handleStartEdit = () => {
-        setIsEditing(true);
-      }
-    
-      const handleConfirmEdit = () => {
-        onConfirmEdit(memory._id, editedMemoryText);
-        setIsEditing(false);
-      };
+    const handleStartEdit = () => {
+      setIsEditing(true);
+    }
+  
+    const handleConfirmEdit = () => {
+      onConfirmEdit(memory._id, editedMemoryText);
+      setIsEditing(false);
+    };
   return (
     <div>
       {isEditing || editedMemoryId === memory._id ? (
@@ -35,6 +41,13 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
             <img src={memory.image} alt='Memory Image' />
           </div>
           <button onClick={handleDelete}>Delete</button>
+          {deleteConfirmation && (
+          <div>
+            <p>Are you sure you want to delete this memory?</p>
+            <button onClick={handleConfirmDelete}>Yes</button>
+            <button onClick={() => setDeleteConfirmation(false)}>No</button>
+          </div>
+        )}
           <button onClick={handleStartEdit}>Edit</button>
         </div>
       )}

@@ -3,9 +3,10 @@ import { getAllMemories, deleteMemory, updateMemory } from '../../Utilities/user
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
 import AddMemoryForm from './AddMemoryForm';
 
-const MemoryPage = () => {
+const MemoryPage = ({ user }) => {
   const [memories, setMemories] = useState([]);
   const [editedMemoryId, setEditedMemoryId] = useState(null)
+  const currentUser = user._id
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -58,10 +59,13 @@ const MemoryPage = () => {
 
   return (
     <div>
-      <h1>MemoryPage</h1>
+      <h1>{user.name} MemoryPage</h1>
 
       <div>
-        <AddMemoryForm onMemoryAdded={handleMemoryAdded} />
+        <AddMemoryForm 
+        onMemoryAdded={handleMemoryAdded}
+        currentUser={currentUser} 
+        />
         {memories.map((memory) => (
           <MemoryCard 
           key={memory._id} 

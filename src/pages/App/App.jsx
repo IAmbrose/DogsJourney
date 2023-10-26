@@ -19,7 +19,7 @@ export default function App() {
             <NavBar user={user} setUser={setUser}/>
             <Routes>
               <Route path="/" element={<MainPage />} />
-              <Route path="/memory" element={<MemoryPage />} />
+              <Route path="/memory" element={<MemoryPage user={user}/>} />
             </Routes>
           </>
         ) : (

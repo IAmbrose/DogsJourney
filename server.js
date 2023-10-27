@@ -9,6 +9,7 @@ const usersRouter = require("./routes/api/users")
 const dogBreedsRouter = require("./routes/api/dogBreeds")
 const memoriesRouter = require("./routes/api/memories");
 const dogProfilesRouter = require("./routes/api/dogProfiles")
+const dogTricksRouter = require("./routes/api/dogTricks")
 
 //* app
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/dogBreeds", dogBreedsRouter);
 app.use("/api/memories", memoriesRouter);
 app.use("/api/dogProfiles", dogProfilesRouter);
+app.use("/api/dogTricks", dogTricksRouter);
 
 
 

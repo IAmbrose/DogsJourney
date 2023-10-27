@@ -28,7 +28,38 @@ const addDogTrick = async (req, res) => {
     }
   };
 
+  const toggleTrickCompleted = async (req, res) => {
+    const dogTrickId = req.params.dogTrickId;
+    const user = res.locals.user;
+  
+    try {
+      const dogTrick = await DogTrick.findById(dogTrickId);
+  
+      if (!dogTrick) {
+        return res.status(404).json({ message: 'Dog trick not found.' });
+      }
+  
+      const userCompletion = dogTrick.tricksCompleted.find((entry) =>
+        entry.user.equals(user._id)
+      );
+  
+      if (!userCompletion) {
+        dogTrick.tricksCompleted.push({ user: user._id, completed: true });
+      } else {
+        userCompletion.completed = !userCompletion.completed;
+      }
+  
+      await dogTrick.save();
+  
+      res.status(200).json({ message: 'Trick completion status toggled successfully' });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+
   module.exports = {
     getAllDogTricks,
-    addDogTrick
+    addDogTrick,
+    toggleTrickCompleted
   }

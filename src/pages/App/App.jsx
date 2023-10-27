@@ -24,7 +24,7 @@ export default function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/memory" element={<MemoryPage user={user}/>} />
               <Route path="/dogprofiles" element={<DogProfilePage />} />
-              <Route path="/memory/:userId" element={<UserMemoryPage />} />
+              <Route path="/memory/:userId" element={<UserMemoryPage user={user}/>} />
             </Routes>
           </>
         ) : (

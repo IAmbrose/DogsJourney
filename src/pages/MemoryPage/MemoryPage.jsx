@@ -6,12 +6,13 @@ import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
 import AddDogProfileForm from '../DogProfilePage/AddDogProfileForm';
 import DogTrickCard from '../../components/DogTrickCard/DogTrickCard';
 
-const MemoryPage = () => {
+const MemoryPage = ({ user }) => {
   const [memories, setMemories] = useState([]);
   const [editedMemoryId, setEditedMemoryId] = useState(null)
   const [currentUserDogProfiles, setCurrentUserDogProfiles] = useState([])
   const [showAddMemoryForm, setShowAddMemoryForm] = useState(false)
   const [showAddDogProfileForm, setShowAddDogProfileForm] = useState(false)
+  const currentUser = user._id;
 
   useEffect(() => {
     const fetchDogProfile = async () => {
@@ -130,7 +131,7 @@ const MemoryPage = () => {
         ))}
       </div>
       <div>
-        <DogTrickCard />
+        <DogTrickCard currentUser={currentUser} />
       </div>
     </div>
   )

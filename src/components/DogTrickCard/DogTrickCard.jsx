@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getAllDogTricks, updateDogTrick } from '../../Utilities/users-service'
 
-const DogTrickCard = () => {
+const DogTrickCard = ({ currentUser }) => {
     const [dogTricks, setDogTricks] = useState([]);
 
     useEffect(() => {
@@ -18,22 +18,19 @@ const DogTrickCard = () => {
 
     const toggleDogTrickCompleted = async (dogTrickId) => {
         try {
-          const updatedDogTrick = await updateDogTrick(dogTrickId);
-      
-          if (updatedDogTrick) {
-            const updatedDogTricks = dogTricks.map((trick) =>
-              trick._id === updatedDogTrick._id ? updatedDogTrick : trick
-            );
-            setDogTricks(updatedDogTricks);
-          }
+          await updateDogTrick(dogTrickId);
+          setDogTricks((prevDogTricks) =>
+            prevDogTricks.map((trick) =>
+              trick._id === dogTrickId
+                ? { ...trick, tricksCompleted: !trick.tricksCompleted }
+                : trick
+            )
+          );
         } catch (error) {
-          console.error("Error updating the dog trick:", error);
+          console.error('Error updating dog trick completion status:', error);
         }
       };
       
-
-    
-
 
   return (
     <div>
@@ -48,9 +45,13 @@ const DogTrickCard = () => {
               Completed:
               <input
                 type="checkbox"
-                checked={trick.completed}
-                onChange={toggleDogTrickCompleted}
-              />
+                checked={
+                    trick.tricksCompleted.find(
+                      (userCompletion) => userCompletion.user === currentUser
+                    )?.completed
+                  }
+                onChange={() => toggleDogTrickCompleted(trick._id)}
+                />
             </label>
           </div>
         ))}

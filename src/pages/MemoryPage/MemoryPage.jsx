@@ -4,6 +4,7 @@ import MemoryCard from '../../components/MemoryCard/MemoryCard';
 import AddMemoryForm from './AddMemoryForm';
 import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
 import AddDogProfileForm from '../DogProfilePage/AddDogProfileForm';
+import DogTrickCard from '../../components/DogTrickCard/DogTrickCard';
 
 const MemoryPage = () => {
   const [memories, setMemories] = useState([]);
@@ -127,6 +128,9 @@ const MemoryPage = () => {
           onConfirmEdit={handleConfirmEdit}
           />
         ))}
+      </div>
+      <div>
+        <DogTrickCard />
       </div>
     </div>
   )

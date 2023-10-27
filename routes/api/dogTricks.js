@@ -6,7 +6,7 @@ const { checkToken } = require("../../config/checkToken");
 // POST /api/users
 router.post("/", checkToken, dogTricksCtrl.addDogTrick);
 router.get("/", dogTricksCtrl.getAllDogTricks);
-router.patch("/:dogTrickId/completed", checkToken, dogTricksCtrl.toggleTrickCompleted)
+router.patch("/:dogTrickId", checkToken, dogTricksCtrl.toggleTrickCompleted)
 
 
 module.exports = router;

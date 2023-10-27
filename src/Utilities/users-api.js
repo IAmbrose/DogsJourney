@@ -5,6 +5,7 @@ const LOGIN_URL = "/api/users/login";
 const DOGBREED_URL = "/api/dogBreeds";
 const MEMORIES_URL = "/api/memories";
 const DOGPROFILE_URL = "/api/dogProfiles"
+const DOGTRICKS_URL = "/api/dogTricks"
 
 export async function signUp(userData) {
   const res = await fetch(BASE_URL, {
@@ -351,5 +352,85 @@ export async function addDogProfile(dogProfileData) {
     throw new Error(
       `Error adding dog profile: ${error.message}`,
     );
+  }
+}
+
+export async function getAllDogTricks() {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGTRICKS_URL}`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching dog tricks");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching dog tricks: ${error.message}`,
+    );
+  }
+}
+
+export async function addDogTrick(dogTrickData) {
+  try {
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${DOGPROFILE_URL}`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(dogTrickData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error adding dog trick");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error adding dog trick: ${error.message}`,
+    );
+  }
+}
+
+export async function updateDogTrick(dogTrickId) {
+  try {
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `${DOGTRICKS_URL}/${dogTrickId}`,
+      {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify(),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("Error updating review");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error updating review: ${error.message}`);
   }
 }

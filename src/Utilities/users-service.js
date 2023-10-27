@@ -106,3 +106,18 @@ export async function signUp(userData) {
     const addedDogProfile = await usersAPI.addDogProfile(dogProfileData);
     return addedDogProfile;
   }
+
+  export async function getAllDogTricks() {
+    const data = await usersAPI.getAllDogTricks();
+    return data;
+  }
+
+  export async function addDogTrick(dogTrickData) {
+    const addedDogTrick = await usersAPI.addDogTrick(dogTrickData);
+    return addedDogTrick;
+  }
+
+  export async function updateDogTrick(dogTrickId) {
+    const updatedDogTrick = await usersAPI.updateDogTrick(dogTrickId);
+    return updatedDogTrick;
+  }

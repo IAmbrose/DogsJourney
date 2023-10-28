@@ -17,19 +17,27 @@ const DogTrickCard = ({ currentUser }) => {
     }, []);
 
     const toggleDogTrickCompleted = async (dogTrickId) => {
-        try {
-          await updateDogTrick(dogTrickId);
-          setDogTricks((prevDogTricks) =>
-            prevDogTricks.map((trick) =>
-              trick._id === dogTrickId
-                ? { ...trick, tricksCompleted: !trick.tricksCompleted }
-                : trick
-            )
-          );
-        } catch (error) {
-          console.error('Error updating dog trick completion status:', error);
-        }
-      };
+      try {
+        await updateDogTrick(dogTrickId);
+        const updatedTricks = dogTricks.map((trick) =>
+          trick._id === dogTrickId ? 
+          {
+            ...trick,
+            tricksCompleted: trick.tricksCompleted.map((completion) => {
+              if (completion.user === currentUser) {
+                return { ...completion, completed: !completion.completed };
+              }
+              return completion;
+            })
+          } : trick
+        );
+        setDogTricks(updatedTricks);
+      } catch (error) {
+        console.error('Error updating dog trick completion status:', error);
+      }
+    };
+  
+  
       
 
   return (
@@ -46,12 +54,10 @@ const DogTrickCard = ({ currentUser }) => {
               <input
                 type="checkbox"
                 checked={
-                    trick.tricksCompleted.find(
-                      (userCompletion) => userCompletion.user === currentUser
-                    )?.completed
-                  }
+                  (trick.tricksCompleted.find((completion) => completion.user === currentUser) || { completed: false }).completed
+                }
                 onChange={() => toggleDogTrickCompleted(trick._id)}
-                />
+              />
             </label>
           </div>
         ))}

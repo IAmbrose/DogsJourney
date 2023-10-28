@@ -12,7 +12,7 @@ const MemoryPage = ({ user }) => {
   const [currentUserDogProfiles, setCurrentUserDogProfiles] = useState([])
   const [showAddMemoryForm, setShowAddMemoryForm] = useState(false)
   const [showAddDogProfileForm, setShowAddDogProfileForm] = useState(false)
-  const currentUser = user._id;
+  
 
   useEffect(() => {
     const fetchDogProfile = async () => {
@@ -131,7 +131,7 @@ const MemoryPage = ({ user }) => {
         ))}
       </div>
       <div>
-        <DogTrickCard currentUser={currentUser} />
+        <DogTrickCard user={user} />
       </div>
     </div>
   )

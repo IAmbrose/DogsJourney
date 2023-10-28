@@ -388,7 +388,7 @@ export async function addDogTrick(dogTrickData) {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch(`${DOGPROFILE_URL}`, {
+    const response = await fetch(`${DOGTRICKS_URL}`, {
       method: "POST",
       headers,
       body: JSON.stringify(dogTrickData),

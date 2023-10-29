@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMemoriesByUser } from '../../Utilities/users-service'; 
+import { getMemoriesByUser, getUserDetails } from '../../Utilities/users-service'; 
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
+
 
 const UserMemoryPage = () => {
   const { userId } = useParams(); 
-
   const [memories, setMemories] = useState([]);
+  const [userName, setUserName] = useState('')
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -18,14 +19,24 @@ const UserMemoryPage = () => {
       }
     };
 
+    const fetchUserName = async () => {
+      try {
+        const users = await getUserDetails();
+        const selectedUser = users.users.find(user => user._id === userId); 
+        setUserName(selectedUser.name)
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+    fetchUserName();
     fetchMemories();
   }, [userId]);
 
-  console.log(userId)
+  
 
   return (
     <div>
-      <h1>Memories for </h1>
+      <h1>Memories for {userName}</h1>
       {memories.map((memory) => (
         <MemoryCard
           key={memory._id}

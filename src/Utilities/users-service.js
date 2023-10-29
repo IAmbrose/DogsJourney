@@ -131,3 +131,8 @@ export async function signUp(userData) {
     const data = await usersAPI.getLikes(memoryId);
     return data;
   }
+
+  export async function getUserDetails() {
+    const data = await usersAPI.getUserDetails();
+    return data;
+  }

@@ -485,3 +485,28 @@ export async function getLikes(memoryId) {
     );
   }
 }
+
+export async function getUserDetails() {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${BASE_URL}`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching user");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching user: ${error.message}`,
+    );
+  }
+}

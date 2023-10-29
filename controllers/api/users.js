@@ -33,7 +33,6 @@ async function create(req, res) {
 
 
 
-
   /*-- Helper Functions --*/
 
 function createJWT(user) {

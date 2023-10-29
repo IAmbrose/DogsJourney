@@ -80,7 +80,7 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
           </div>
         )}
           <button onClick={handleStartEdit}>Edit</button>
-          <button onClick={handleLike}>{liked ? 'Unlike' : 'Like'}</button>
+          <button onClick={handleLike}>Like</button>
           <span>Likes: {likesCount}</span>
         </div>
       )}

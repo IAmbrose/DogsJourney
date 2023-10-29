@@ -1,4 +1,9 @@
 import { useState } from 'react'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const DogCard = ({ searchResult, wishListData, onAddToWishList, showAddToWishList, showDeleteFromWishList, onDeleteFromWishList }) => {
   const [showMore, setShowMore] = useState(false)
@@ -10,6 +15,7 @@ const DogCard = ({ searchResult, wishListData, onAddToWishList, showAddToWishLis
   const dogData = wishListData || searchResult;
 
   return (
+    
     <div>
         <img src={dogData.image_link} alt={dogData.name} />
         <h2>{dogData.name}</h2>

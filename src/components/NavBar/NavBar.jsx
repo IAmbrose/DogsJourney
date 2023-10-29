@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import * as userService from '../../Utilities/users-service';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function NavBar ({ user, setUser }) {
     function handleLogOut() {
@@ -9,15 +11,29 @@ export default function NavBar ({ user, setUser }) {
         setUser(null);
       }
     return (
-        <nav>
-            <Link to="/">MainPage</Link>
-            <Link to="/memory">MemoryPage</Link>
-            <Link to="/dogprofiles">Dog Profiles Page</Link>
-            <Link to="/upload">Upload</Link>
-            <p>Welcome, {user.name}</p>
-            <Link to="" onClick={handleLogOut}>
+        <AppBar position="static">
+        <Toolbar>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'white' }}>
+            <HomeIcon sx={{ marginRight: '5px' }} />
+            <Typography variant="h6">
+              DogsJourney
+            </Typography>
+          </Link>
+          <Link to="/memory" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
+            MemoryPage
+          </Link>
+          <Link to="/dogprofiles" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
+            Dog Profiles Page
+          </Link>
+          <Link to="/upload" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
+            Upload
+          </Link>
+          <Box sx={{ flexGrow: 1 }} />
+          <Typography variant="h7" style={{ margin: '0 10px' }}>Welcome back, {user.name}!</Typography>
+          <Link to="/" onClick={handleLogOut} style={{ color: 'white', textDecoration: 'none', marginLeft: 'auto' }}>
             Log Out
-            </Link>
-        </nav>
-    )
-}
+          </Link>
+        </Toolbar>
+      </AppBar>
+    );
+  }

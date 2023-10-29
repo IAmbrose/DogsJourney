@@ -16,7 +16,7 @@ const dogProfileSchema = new mongoose.Schema(
             ref: User,
             required: true,
           },
-        image: {
+        imageURL: {
             type: String,
         },
     },

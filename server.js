@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const debug = require("debug")("mern:server");
+const cors = require("cors");
 const usersRouter = require("./routes/api/users")
 const dogBreedsRouter = require("./routes/api/dogBreeds")
 const memoriesRouter = require("./routes/api/memories");
@@ -16,6 +17,7 @@ const app = express();
 
 //* middleware
 app.use(logger("dev"));
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "dist")));
 app.use("/api/users", usersRouter);
@@ -23,6 +25,7 @@ app.use("/api/dogBreeds", dogBreedsRouter);
 app.use("/api/memories", memoriesRouter);
 app.use("/api/dogProfiles", dogProfilesRouter);
 app.use("/api/dogTricks", dogTricksRouter);
+
 
 
 

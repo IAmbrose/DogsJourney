@@ -42,7 +42,7 @@ const memorySchema = new mongoose.Schema(
             ref: User,
             required: true,
           },
-        image: {
+        imageURL: {
             type: String,
         },
         comments: [commentSchema],

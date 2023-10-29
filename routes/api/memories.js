@@ -13,5 +13,6 @@ router.get("/:memoryId/comments", memoriesCtrl.getComments)
 router.delete("/:memoryId/comments/:commentId", checkToken, memoriesCtrl.deleteComment)
 router.patch("/:memoryId/comments/:commentId", checkToken, memoriesCtrl.updateComment)
 router.post("/:memoryId/like", checkToken, memoriesCtrl.likeMemory)
+router.get("/:memoryId/like", memoriesCtrl.getLikes)
 
 module.exports = router;

@@ -224,6 +224,24 @@ const deleteMemory = async (req, res) => {
     }
   };
 
+  const getLikes = async (req, res) => {
+    const memoryId = req.params.memoryId; 
+  
+    try {
+      const memory = await Memory.findById(memoryId);
+  
+      if (!memory) {
+        return res.status(404).json({ message: 'Memory not found.' });
+      }
+  
+      const likes = memory.likes;
+  
+      res.status(200).json({ likes });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
 
 module.exports = {
     getMemories,
@@ -235,5 +253,6 @@ module.exports = {
     deleteComment,
     updateComment,
     likeMemory,
-    getMemoriesByUser
+    getMemoriesByUser,
+    getLikes
 }

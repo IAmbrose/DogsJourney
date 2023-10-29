@@ -434,3 +434,54 @@ export async function updateDogTrick(dogTrickId) {
     throw new Error(`Error updating review: ${error.message}`);
   }
 }
+
+export async function likeMemory(memoryId) {
+  try {
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${MEMORIES_URL}/${memoryId}/like`, {
+      method: "POST",
+      headers,
+    });
+
+    if (!response.ok) {
+      throw new Error("Error adding like");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error adding like: ${error.message}`,
+    );
+  }
+}
+
+export async function getLikes(memoryId) {
+  try{
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${MEMORIES_URL}/${memoryId}/like`, {
+      method: "GET",
+      headers
+    });
+    if (!response.ok) {
+      throw new Error("Error fetching likes");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(
+      `Error fetching likes: ${error.message}`,
+    );
+  }
+}

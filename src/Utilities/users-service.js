@@ -121,3 +121,13 @@ export async function signUp(userData) {
     const updatedDogTrick = await usersAPI.updateDogTrick(dogTrickId);
     return updatedDogTrick;
   }
+
+  export async function likeMemory(memoryId) {
+    const liked= await usersAPI.likeMemory(memoryId);
+    return liked;
+  }
+
+  export async function getLikes(memoryId) {
+    const data = await usersAPI.getLikes(memoryId);
+    return data;
+  }

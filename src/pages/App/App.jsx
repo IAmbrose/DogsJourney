@@ -7,6 +7,7 @@ import MainPage from "../MainPage/MainPage";
 import MemoryPage from "../MemoryPage/MemoryPage";
 import DogProfilePage from "../DogProfilePage/DogProfilePage";
 import UserMemoryPage from "../MemoryPage/UserMemoryPage";
+import Upload from "../../components/Upload/Upload";
 
 
 
@@ -25,6 +26,7 @@ export default function App() {
               <Route path="/memory" element={<MemoryPage user={user}/>} />
               <Route path="/dogprofiles" element={<DogProfilePage />} />
               <Route path="/memory/:userId" element={<UserMemoryPage user={user}/>} />
+              <Route path="/upload" element={<Upload />} />
             </Routes>
           </>
         ) : (

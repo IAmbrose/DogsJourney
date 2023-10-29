@@ -127,6 +127,7 @@ const MemoryPage = ({ user }) => {
           onDeleteMemory={handleDeleteMemory}
           editedMemoryId={editedMemoryId} 
           onConfirmEdit={handleConfirmEdit}
+          user={user}
           />
         ))}
       </div>

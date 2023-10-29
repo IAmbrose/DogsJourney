@@ -3,7 +3,7 @@ const axios = require("axios");
 
 const getDogData = async (req, res) => {
   const dogBreedBaseUrl = "https://api.api-ninjas.com/v1/dogs";
-  const apiKey = '51rcSiYsX8U0Gm9roxvf9Q==YbH7mOA9G0SJpxRh';
+  const apiKey = process.env.DOG_API_KEY;
 
   const searchQuery = req.params.name;
 

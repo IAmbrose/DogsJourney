@@ -13,6 +13,7 @@ export default function NavBar ({ user, setUser }) {
             <Link to="/">MainPage</Link>
             <Link to="/memory">MemoryPage</Link>
             <Link to="/dogprofiles">Dog Profiles Page</Link>
+            <Link to="/upload">Upload</Link>
             <p>Welcome, {user.name}</p>
             <Link to="" onClick={handleLogOut}>
             Log Out

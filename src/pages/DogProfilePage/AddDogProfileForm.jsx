@@ -6,17 +6,18 @@ const AddDogProfileForm = ({onDogProfileAdded}) => {
     const [newDogProfileDesc, setNewDogProfileDesc] = useState('');
 
 
-    const handleAddProfile = async (e) => {
-        e.preventDefault();
-        try {
-          await addDogProfile({ name: newDogProfileName, description: newDogProfileDesc });
-          setNewDogProfileName('');
-          setNewDogProfileDesc('');
-          onDogProfileAdded();
-        } catch (error) {
-          console.error('Error adding memory:', error);
-        }
-      };
+  const handleAddProfile = async (e) => {
+      e.preventDefault();
+      try {
+        await addDogProfile({ name: newDogProfileName, description: newDogProfileDesc });
+        setNewDogProfileName('');
+        setNewDogProfileDesc('');
+        onDogProfileAdded();
+      } catch (error) {
+        console.error('Error adding memory:', error);
+      }
+    };
+
 
   return (
     <div>

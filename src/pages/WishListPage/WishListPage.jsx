@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import DogCard from '../../components/DogCard/DogCard';
 import { getAllDogFromWishList, deleteDogFromWishList } from '../../Utilities/users-service';
+import { Grid } from '@mui/material';
 
 const WishListPage = ({ wishList, setWishList }) => {
 
@@ -28,17 +29,18 @@ const WishListPage = ({ wishList, setWishList }) => {
     return (
       <div>
         <h1>Wishlist</h1>
-        <div>
-          {wishList.map((wishListData, index) => (
-            <DogCard
-              key={index}
-              wishListData={wishListData}
-              showAddToWishList={false}
-              showDeleteFromWishList={true}
-              onDeleteFromWishList={() => handleDeleteFromWishList(wishListData._id)}
-            />
-          ))}
-        </div>
+          <Grid container spacing={2}>
+            {wishList.map((wishListData, index) => (
+              <Grid item key={index} xs={6} sm={4} md={3} lg={2}>
+                <DogCard
+                  wishListData={wishListData}
+                  showAddToWishList={false}
+                  showDeleteFromWishList={true}
+                  onDeleteFromWishList={() => handleDeleteFromWishList(wishListData._id)}
+                />
+              </Grid>
+            ))}
+        </Grid>
       </div>
     );
   }

@@ -67,7 +67,7 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
       ) : (
         <div>
           <div>
-            <img src={memory.image} alt='Memory Image' />
+            <img src={memory.imageUrl} alt='Memory Image' />
           </div>
           <div>{memory.user.name}</div>
           <div>{memory.text}</div>

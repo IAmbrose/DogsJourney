@@ -25,7 +25,7 @@ const UserMemoryPage = () => {
 
   return (
     <div>
-      <h1>Memories for User</h1>
+      <h1>Memories for </h1>
       {memories.map((memory) => (
         <MemoryCard
           key={memory._id}

@@ -1,12 +1,18 @@
-
+import { Grid } from '@mui/material';
 import SearchBar from '../../components/SearchBar/SearchBar'
 
 const MainPage = () => {
   return (
-    <div>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+    <Grid>
         <SearchBar />
-    </div>
-  )
-}
-
+      </Grid>
+    </Grid>
+  );
+};
 export default MainPage

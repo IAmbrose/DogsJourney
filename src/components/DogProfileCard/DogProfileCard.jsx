@@ -1,9 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@mui/material';
 
 const DogProfileCard = ({ allUserDogProfile, currentUserDogProfile }) => {
     const navigate = useNavigate();
@@ -17,11 +13,11 @@ const DogProfileCard = ({ allUserDogProfile, currentUserDogProfile }) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
             <CardActionArea onClick={() => handleViewMemories(dogProfile.user._id)}>
-                {dogProfile.image && (
+                {dogProfile.imageUrl && (
                     <CardMedia
                         component="img"
                         height="140"
-                        image={dogProfile.image}
+                        image={dogProfile.imageUrl}
                         alt={`${dogProfile.name}'s image`}
                     />
                 )}

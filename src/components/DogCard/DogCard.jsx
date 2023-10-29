@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating } from '@mui/material';
 
 const DogCard = ({ searchResult, wishListData, onAddToWishList, showAddToWishList, showDeleteFromWishList, onDeleteFromWishList }) => {
   const [showMore, setShowMore] = useState(false)
@@ -15,39 +11,74 @@ const DogCard = ({ searchResult, wishListData, onAddToWishList, showAddToWishLis
   const dogData = wishListData || searchResult;
 
   return (
-    
-    <div>
-        <img src={dogData.image_link} alt={dogData.name} />
-        <h2>{dogData.name}</h2>
-        <p>
-          {showMore}
-          <button onClick={toggleShowMore} className="see-more-link">
-            {showMore ? 'See Less' : 'See More Characteristics'}
-          </button>
-        </p>
-        
-        {showMore && (
-          <>
-            <p>Good with Children: {dogData.good_with_children}</p>
-            <p>Good with Other Dogs: {dogData.good_with_other_dogs}</p>
-            <p>Shedding: {dogData.shedding}</p>
-            <p>Grooming: {dogData.grooming}</p>
-            <p>Drooling: {dogData.drooling}</p>
-            <p>Playfulness: {dogData.playfulness}</p>
-            <p>Protectiveness: {dogData.protectiveness}</p>
-            <p>Trainability: {dogData.trainability}</p>
-            <p>Energy: {dogData.energy}</p>
-            <p>Barking: {dogData.barking}</p>
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        component="img"
+        alt={dogData.name}
+        image={dogData.image_link}
+        sx={{ objectFit: 'contain', height: 230}}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {dogData.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {showMore && (
+            <>
+            <Typography variant="subtitle1">Good with Children</Typography>
+            <Rating name="good-with-children" value={dogData.good_with_children} readOnly />
+
+            <Typography variant="subtitle1">Good with Other Dogs</Typography>
+            <Rating name="good-with-other-dogs" value={dogData.good_with_other_dogs} readOnly />
+
+            <Typography variant="subtitle1">Shedding</Typography>
+            <Rating name="shedding" value={dogData.shedding} readOnly />
+
+            <Typography variant="subtitle1">Grooming</Typography>
+            <Rating name="grooming" value={dogData.grooming} readOnly />
+
+            <Typography variant="subtitle1">Drooling</Typography>
+            <Rating name="drooling" value={dogData.drooling} readOnly />
+
+            <Typography variant="subtitle1">Playfulness</Typography>
+            <Rating name="playfulness" value={dogData.playfulness} readOnly />
+
+            <Typography variant="subtitle1">Protectiveness</Typography>
+            <Rating name="protectiveness" value={dogData.protectiveness} readOnly />
+
+            <Typography variant="subtitle1">Trainability</Typography>
+            <Rating name="trainability" value={dogData.trainability} readOnly />
+
+            <Typography variant="subtitle1">Energy</Typography>
+            <Rating name="energy" value={dogData.energy} readOnly />
+
+            <Typography variant="subtitle1">Barking</Typography>
+            <Rating name="barking" value={dogData.barking} readOnly />
           </>
-        )}
+          )}
+        </Typography>
+      </CardContent>
+      <CardActions sx={{ justifyContent: 'space-between' }}>
         {showAddToWishList && (
-          <button onClick={onAddToWishList}>Add to Wishlist</button>
+          <Button size="small" onClick={onAddToWishList}>
+            Add to Wishlist
+          </Button>
         )}
         {showDeleteFromWishList && (
-          <button onClick={() => onDeleteFromWishList(wishListData._id)}>Delete From WishList</button>
+          <Button
+            size="small"
+            onClick={() => onDeleteFromWishList(wishListData._id)}
+          >
+            Delete
+          </Button>
         )}
-    </div>
-  )
-}
+        <Button size="small" onClick={toggleShowMore}>
+          {showMore ? 'Close' : 'Characteristics'}
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
+
 
 export default DogCard

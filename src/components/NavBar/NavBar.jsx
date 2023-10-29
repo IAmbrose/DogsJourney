@@ -11,7 +11,7 @@ export default function NavBar ({ user, setUser }) {
         setUser(null);
       }
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ backgroundColor: '#ff9800' }}>
         <Toolbar>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'white' }}>
             <HomeIcon sx={{ marginRight: '5px' }} />

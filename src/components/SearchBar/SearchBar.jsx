@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {searchDogBreeds, getDogNames, addDogToWishList } from "../../Utilities/users-service"
 import DogCard from '../DogCard/DogCard';
 import WishListPage from '../../pages/WishListPage/WishListPage';
+import { Grid } from '@mui/material';
 
 
 const SearchBar = () => {
@@ -65,16 +66,17 @@ const SearchBar = () => {
                 ))}
             </select>
         <button onClick={handleSearch}>Search</button>
-        <div>
+        <Grid container spacing={2}>
             {searchResults.map((result, index) => (
-                <DogCard 
-                    key={index}
-                    searchResult={result}
-                    onAddToWishList={() => handleAddToWishList(result)}
-                    showAddToWishList={true}
+            <Grid item key={index} xs={6} sm={4} md={3} lg={2}>
+                <DogCard
+                searchResult={result}
+                onAddToWishList={() => handleAddToWishList(result)}
+                showAddToWishList={true}
                 />
+            </Grid>
             ))}
-        </div>
+      </Grid>
         <WishListPage 
         wishList={wishList} 
         setWishList={setWishList}

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { signUp } from '../../Utilities/users-service';
+import { TextField, Button, Grid, Box, Typography } from '@mui/material';
 
 
 export default class SignUpForm extends Component {
@@ -36,22 +37,68 @@ export default class SignUpForm extends Component {
       render() {
         const disable = this.state.password !== this.state.confirm;
         return (
-          <div>
-            <div className="form-container">
-              <form autoComplete="off" onSubmit={this.handleSubmit}>
-                <label>Name</label>
-                <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
-                <label>Email</label>
-                <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-                <label>Password</label>
-                <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
-                <label>Confirm</label>
-                <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-                <button type="submit" disabled={disable}>SIGN UP</button>
-              </form>
-            </div>
-            <p className="error-message">&nbsp;{this.state.error}</p>
-          </div>
-        );
-      }
+        <Grid container justifyContent="center">
+        <Grid item xs={6}>
+          <Box
+            sx={{
+              boxShadow: 3,
+              borderRadius: 2,
+              p: 4,
+              mt: 5,
+            }}
+          >
+        <Typography component="h1" variant="h5">
+          Sign Up
+        </Typography>
+            <form autoComplete="off" onSubmit={this.handleSubmit}>
+              <TextField
+                label="Name"
+                type="text"
+                name="name"
+                value={this.state.name}
+                onChange={this.handleChange}
+                required
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Email"
+                type="email"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                required
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Confirm"
+                type="password"
+                name="confirm"
+                value={this.state.confirm}
+                onChange={this.handleChange}
+                required
+                fullWidth
+                margin="normal"
+              />
+              <Button type="submit" disabled={disable} variant="contained" fullWidth>
+                SIGN UP
+              </Button>
+            </form>
+            <p style={{ color: 'red', textAlign: 'center' }}>{this.state.error}</p>
+          </Box>
+        </Grid>
+      </Grid>
+    );
   }
+}

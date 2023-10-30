@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { likeMemory, getLikes } from '../../Utilities/users-service'
 
-const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) => {
+const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit, user }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedMemoryText, setEditedMemoryText] = useState(memory.text);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -42,16 +42,24 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
     };
 
     const handleLike = async () => {
-      if (liked) {
-        setLiked(false);
-      } else {
-        try {
+      try {
+        if (liked) {
+          await likeMemory(memory._id);
+          setLiked(false);
+          setLikesCount(likesCount - 1);
+        } else {
           await likeMemory(memory._id);
           setLiked(true);
-        } catch (error) {
-          console.error("Error liking memory:", error);
+          setLikesCount(likesCount + 1);
         }
+      } catch (error) {
+        console.error("Error liking memory:", error);
       }
+    };
+
+    const formatDate = (postDate) => {
+      const date = new Date(postDate);
+      return date.toLocaleString(); 
     };
 
   return (
@@ -71,15 +79,21 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
           </div>
           <div>{memory.user.name}</div>
           <div>{memory.text}</div>
-          <button onClick={handleDelete}>Delete</button>
-          {deleteConfirmation && (
-          <div>
-            <p>Are you sure you want to delete this memory?</p>
-            <button onClick={handleConfirmDelete}>Yes</button>
-            <button onClick={() => setDeleteConfirmation(false)}>No</button>
-          </div>
-        )}
-          <button onClick={handleStartEdit}>Edit</button>
+          <div>Posted on: {formatDate(memory.createdAt)}</div>
+          {user._id === memory.user._id && (
+            <div>
+              <button onClick={handleDelete}>Delete</button>
+              {deleteConfirmation && (
+                <div>
+                  <p>Are you sure you want to delete this memory?</p>
+                  <button onClick={handleConfirmDelete}>Yes</button>
+                  <button onClick={() => setDeleteConfirmation(false)}>No</button>
+                </div>
+              )}
+              <button onClick={handleStartEdit}>Edit</button>
+            </div>
+          )}
+
           <button onClick={handleLike}>Like</button>
           <span>Likes: {likesCount}</span>
         </div>
@@ -87,5 +101,4 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit }) =
     </div>
   )
 }
-
 export default MemoryCard

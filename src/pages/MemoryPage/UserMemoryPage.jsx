@@ -4,7 +4,7 @@ import { getMemoriesByUser, getUserDetails } from '../../Utilities/users-service
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
 
 
-const UserMemoryPage = () => {
+const UserMemoryPage = ({ user }) => {
   const { userId } = useParams(); 
   const [memories, setMemories] = useState([]);
   const [userName, setUserName] = useState('')
@@ -41,6 +41,7 @@ const UserMemoryPage = () => {
         <MemoryCard
           key={memory._id}
           memory={memory}
+          user = {user}
         />
       ))}
     </div>

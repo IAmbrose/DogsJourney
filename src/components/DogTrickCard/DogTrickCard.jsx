@@ -5,6 +5,7 @@ import AddDogTrickForm from '../AddDogTrickForm/AddDogTrickForm';
 const DogTrickCard = ({ user }) => {
     const [dogTricks, setDogTricks] = useState([]);
     const [showAddDogTrickForm, setShowAddDogTrickForm] = useState(false)
+    console.log(user)
 
     useEffect(() => {
       const fetchDogTricks = async () => {
@@ -26,7 +27,7 @@ const DogTrickCard = ({ user }) => {
           {
             ...trick,
             tricksCompleted: trick.tricksCompleted.map((completion) => {
-              if (completion.user === user) {
+              if (completion.user === user._id) {
                 return { ...completion, completed: !completion.completed };
               }
               return completion;
@@ -79,7 +80,7 @@ const DogTrickCard = ({ user }) => {
               <input
                 type="checkbox"
                 checked={
-                  (trick.tricksCompleted.find((completion) => completion.user === user) || { completed: false }).completed
+                  (trick.tricksCompleted.find((completion) => completion.user === user._id) || { completed: false }).completed
                 }
                 onChange={() => toggleDogTrickCompleted(trick._id)}
               />

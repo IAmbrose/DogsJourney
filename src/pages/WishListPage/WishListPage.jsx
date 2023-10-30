@@ -31,7 +31,7 @@ const WishListPage = ({ wishList, setWishList }) => {
         <h1>Wishlist</h1>
           <Grid container spacing={2}>
             {wishList.map((wishListData, index) => (
-              <Grid item key={index} xs={6} sm={4} md={3} lg={2}>
+              <Grid item key={index}>
                 <DogCard
                   wishListData={wishListData}
                   showAddToWishList={false}

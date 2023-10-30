@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import { Grid, Button } from "@mui/material";
 
 export default function AuthPage ({ setUser }) {
     const [showLoginForm, setShowLoginForm] = useState(true);
@@ -9,28 +10,33 @@ export default function AuthPage ({ setUser }) {
         setShowLoginForm(!showLoginForm);
     }
     return (
-        // <main>
-        //     <h1>AuthPage</h1>
-        //     <SignUpForm setUser={setUser}/>
-        //     <LoginForm setUser={setUser}/>
-        // </main>
-        <main>
-        <h1>AuthPage</h1>
+      <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      style={{ height: "100vh" }}
+    >
+      <Grid item>
+        <h1>DogsJourney</h1>
+      </Grid>
+      <Grid item>
         {showLoginForm ? (
           <>
             <LoginForm setUser={setUser} />
-            <p>
-              <button onClick={toggleForm}>Sign Up</button >
-            </p>
+            <Button onClick={toggleForm} variant="text">
+              Sign Up
+            </Button>
           </>
         ) : (
           <>
             <SignUpForm setUser={setUser} />
-            <p>
-              <button  onClick={toggleForm}>Login</button>
-            </p>
+            <Button onClick={toggleForm} variant="text">
+              Login
+            </Button>
           </>
         )}
-      </main>
-      );
-    }
+      </Grid>
+    </Grid>
+  );
+}

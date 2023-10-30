@@ -6,7 +6,7 @@ import { Autocomplete, TextField, Grid, Button, CircularProgress } from '@mui/ma
 
 
 const SearchBar = () => {
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
     const [dogBreeds, setDogBreeds] = useState([]);
     const [wishList, setWishList] = useState([]);
@@ -51,28 +51,26 @@ const SearchBar = () => {
 
   return (
     <Grid container justifyContent="center">
-       <Grid item sx={{ alignItems: 'center', p: 2 }}>
-                <Autocomplete
-                    options={dogBreeds}
-                    value={searchQuery}
-                    onChange={(e, newValue) => setSearchQuery(newValue)}
-                    renderInput={(params) => (
-                        <TextField {...params} label="Search for dog breed" sx={{ width: '200%' }} />
-                    )}
-                />
-                 <Grid item>
-                    <Button onClick={handleSearch}>
-                        Search
-                    </Button>
-                </Grid>
+       <Grid item xs={5} sx={{ mt: 2 }}>
+            <Autocomplete
+                options={dogBreeds}
+                value={searchQuery}
+                onChange={(e, newValue) => setSearchQuery(newValue)}
+                renderInput={(params) => (
+                    <TextField {...params} label="Search for dog breed" />
+                )}
+            />
+                <Button onClick={handleSearch}>
+                    Search
+                </Button>
             </Grid>
             <Grid item xs={12} sx={{ mt: 2 }}>
                 {loading ? (
-                    <CircularProgress /> 
+                    <CircularProgress color='success'/> 
                 ) : (
                     <Grid container spacing={2}>
                         {searchResults.map((result, index) => (
-                            <Grid item key={index} xs={6} sm={4} md={3} lg={2}>
+                            <Grid item key={index}>
                                 <DogCard
                                     searchResult={result}
                                     onAddToWishList={() => handleAddToWishList(result)}

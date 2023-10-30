@@ -15,7 +15,7 @@ export default function NavBar ({ user, setUser }) {
         <Toolbar>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'white' }}>
             <HomeIcon sx={{ marginRight: '5px' }} />
-            <Typography variant="h6">
+            <Typography variant="h5">
               DogsJourney
             </Typography>
           </Link>

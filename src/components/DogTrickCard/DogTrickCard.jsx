@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getAllDogTricks, updateDogTrick, addMemory } from '../../Utilities/users-service'
 import AddDogTrickForm from '../AddDogTrickForm/AddDogTrickForm';
+import Checkbox from '@mui/material/Checkbox';
 
 const DogTrickCard = ({ user, onMemoryAdded }) => {
     const [dogTricks, setDogTricks] = useState([]);
@@ -86,18 +87,14 @@ const DogTrickCard = ({ user, onMemoryAdded }) => {
         {dogTricks.map((trick) => (
           <div className="dog-trick-card" key={trick._id}>
             <h3>{trick.trick_name}</h3>
-            <p>Description: {trick.description}</p>
-            <p>Difficulty Level: {trick.difficulty_level}</p>
-            <label>
-              Completed:
-              <input
-                type="checkbox"
+            <Checkbox
                 checked={
                   (trick.tricksCompleted.find((completion) => completion.user === user._id) || { completed: false }).completed
                 }
                 onChange={() => toggleDogTrickCompleted(trick._id)}
               />
-            </label>
+            <p>Description: {trick.description}</p>
+            <p>Difficulty Level: {trick.difficulty_level}</p>
           </div>
         ))}
       </div>

@@ -8,7 +8,6 @@ import DogTrickCard from '../../components/DogTrickCard/DogTrickCard';
 
 const MemoryPage = ({ user }) => {
   const [memories, setMemories] = useState([]);
-  const [editedMemoryId, setEditedMemoryId] = useState(null)
   const [currentUserDogProfiles, setCurrentUserDogProfiles] = useState([])
   const [showAddMemoryForm, setShowAddMemoryForm] = useState(false)
   const [showAddDogProfileForm, setShowAddDogProfileForm] = useState(false)
@@ -74,7 +73,6 @@ const MemoryPage = ({ user }) => {
       await updateMemory(memoryId, updatedText);
       const updatedMemories = await getAllMemories();
       setMemories(updatedMemories);
-      setEditedMemoryId(null); 
     } catch (error) {
       console.error('Error editing memory:', error);
     }
@@ -114,7 +112,7 @@ const MemoryPage = ({ user }) => {
       <h1>My Memory Page</h1>
 
       <div>
-        <button onClick={toggleAddMemoryForm}>Add Memory</button> {/* Button to toggle the "Add Memory" form */}
+        <button onClick={toggleAddMemoryForm}>Add Memory</button>
         {showAddMemoryForm && (
         <AddMemoryForm 
         onMemoryAdded={handleMemoryAdded}
@@ -125,7 +123,6 @@ const MemoryPage = ({ user }) => {
           key={memory._id} 
           memory={memory}
           onDeleteMemory={handleDeleteMemory}
-          editedMemoryId={editedMemoryId} 
           onConfirmEdit={handleConfirmEdit}
           user={user}
           />

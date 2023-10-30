@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { likeMemory, getLikes } from '../../Utilities/users-service'
-import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
+import { Card, CardContent, CardActions, CardMedia, Typography, Button, Grid } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import TextField from '@mui/material/TextField';
 
-const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit, user }) => {
+const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedMemoryText, setEditedMemoryText] = useState(memory.text);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -34,7 +35,7 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit, use
     }
 
     
-    const handleStartEdit = () => {
+    const handleEdit = () => {
       setIsEditing(true);
     }
   
@@ -84,32 +85,45 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit, use
           </Typography>
         </CardContent>
         <CardActions>
-          {user._id === memory.user._id && (
-            <Button size="small" onClick={handleDelete}>
-              Delete
-            </Button>
-          )}
-          {deleteConfirmation && (
+          {deleteConfirmation ? (
             <div>
-              <p>Are you sure you want to delete this memory?</p>
+              <Typography>Are you sure you want to delete this memory?</Typography>
               <Button onClick={handleConfirmDelete}>Yes</Button>
               <Button onClick={() => setDeleteConfirmation(false)}>No</Button>
             </div>
-          )}
-          <Button size="small" onClick={handleStartEdit}>
-            Edit
-          </Button>
-          {isEditing || editedMemoryId === memory._id ? (
-            <div>
-              <textarea value={editedMemoryText} onChange={e => setEditedMemoryText(e.target.value)} />
-              <Button onClick={handleConfirmEdit}>Save Edit</Button>
-            </div>
           ) : (
-            <Button size="small" onClick={handleLike}>
-              {liked ? <FavoriteIcon color="#dd2c00" /> : <FavoriteIcon />}
-            </Button>
+            <>
+              {!isEditing && user._id === memory.user._id && (
+                <div>
+                <Button size="small" onClick={handleDelete}>
+                  Delete
+                </Button>
+                <Button size="small" onClick={handleEdit}>
+                  Edit
+                </Button>
+              </div>
+              )}
+              {isEditing ? (
+                <div>
+                  <TextField
+                    fullWidth
+                    multiline
+                    value={editedMemoryText}
+                    onChange={e => setEditedMemoryText(e.target.value)}
+                  />
+                  <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+                  <Button onClick={handleConfirmEdit}>Confirm</Button>
+                </div>
+              ) : (
+                <div>
+                  <Button size="small" onClick={handleLike}>
+                    {liked ? <FavoriteIcon color='disabled'/> : <FavoriteIcon sx={{ color: 'red' }}/>}
+                  </Button>
+                  <Typography variant="subtitle2">{likesCount}</Typography>
+                </div>
+              )}
+            </>
           )}
-          <Typography variant="subtitle2">{likesCount}</Typography>
         </CardActions>
       </Card>
   );

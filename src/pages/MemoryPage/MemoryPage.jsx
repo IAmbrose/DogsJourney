@@ -132,7 +132,10 @@ const MemoryPage = ({ user }) => {
         ))}
       </div>
       <div>
-        <DogTrickCard user={user} />
+        <DogTrickCard 
+        user={user}
+        onMemoryAdded={handleMemoryAdded}
+         />
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { getAllDogTricks, updateDogTrick } from '../../Utilities/users-service'
+import { getAllDogTricks, updateDogTrick, addMemory } from '../../Utilities/users-service'
 import AddDogTrickForm from '../AddDogTrickForm/AddDogTrickForm';
 
-const DogTrickCard = ({ user }) => {
+const DogTrickCard = ({ user, onMemoryAdded }) => {
     const [dogTricks, setDogTricks] = useState([]);
     const [showAddDogTrickForm, setShowAddDogTrickForm] = useState(false)
     console.log(user)
@@ -22,18 +22,31 @@ const DogTrickCard = ({ user }) => {
     const toggleDogTrickCompleted = async (dogTrickId) => {
       try {
         await updateDogTrick(dogTrickId);
-        const updatedTricks = dogTricks.map((trick) =>
-          trick._id === dogTrickId ? 
-          {
-            ...trick,
-            tricksCompleted: trick.tricksCompleted.map((completion) => {
-              if (completion.user === user._id) {
-                return { ...completion, completed: !completion.completed };
+        const updatedTricks = dogTricks.map((trick) => {
+          if (trick._id === dogTrickId) {
+            const updatedTrick = {
+              ...trick,
+              tricksCompleted: trick.tricksCompleted.map((completion) => {
+                if (completion.user === user._id) {
+                  return { ...completion, completed: !completion.completed };
+                }
+                return completion;
+              }),
+            };
+            if (!trick.tricksCompleted.find((completion) => completion.user === user._id).completed) {
+              const newMemoryText = `Completed the dog trick "${trick.trick_name}" - ${trick.description}`;
+              try {
+                addMemory({ text: newMemoryText });
+                onMemoryAdded();
+                console.log('Memory added:', newMemoryText);
+              } catch (error) {
+                console.error('Error adding memory:', error);
               }
-              return completion;
-            })
-          } : trick
-        );
+            }
+            return updatedTrick;
+          }
+          return trick;
+        });
         setDogTricks(updatedTricks);
       } catch (error) {
         console.error('Error updating dog trick completion status:', error);

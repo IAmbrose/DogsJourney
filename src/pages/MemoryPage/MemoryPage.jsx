@@ -111,7 +111,7 @@ const MemoryPage = ({ user }) => {
           <AddDogProfileForm
             onDogProfileAdded={handleDogProfileAdded} />
         )}
-      <h1>MemoryPage</h1>
+      <h1>My Memory Page</h1>
 
       <div>
         <button onClick={toggleAddMemoryForm}>Add Memory</button> {/* Button to toggle the "Add Memory" form */}

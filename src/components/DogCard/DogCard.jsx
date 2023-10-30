@@ -19,7 +19,7 @@ const DogCard = ({ searchResult, wishListData, onAddToWishList, showAddToWishLis
         sx={{ objectFit: 'contain', height: 230}}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography variant="h5">
           {dogData.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">

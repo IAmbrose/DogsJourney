@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { likeMemory, getLikes } from '../../Utilities/users-service'
+import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit, user }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -63,42 +65,53 @@ const MemoryCard = ({ memory, onDeleteMemory, editedMemoryId, onConfirmEdit, use
     };
 
   return (
-    <div>
-      {isEditing || editedMemoryId === memory._id ? (
-        <div>
-          <textarea
-            value={editedMemoryText}
-            onChange={(e) => setEditedMemoryText(e.target.value)}
-          />
-          <button onClick={handleConfirmEdit}>Save Edit</button>
-        </div>
-      ) : (
-        <div>
-          <div>
-            <img src={memory.imageUrl} alt='Memory Image' />
-          </div>
-          <div>{memory.user.name}</div>
-          <div>{memory.text}</div>
-          <div>Posted on: {formatDate(memory.createdAt)}</div>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardMedia
+          component="img"
+          alt="Memory Image"
+          image={memory.imageURL}
+          sx={{ objectFit: 'contain', height: 230 }}
+        />
+        <CardContent>
+          <Typography variant="h5">
+            {memory.user.name}
+          </Typography>
+          <Typography variant="body1">
+            {memory.text}
+          </Typography>
+          <Typography variant="caption" color="#757575">
+            Posted on: {formatDate(memory.createdAt)}
+          </Typography>
+        </CardContent>
+        <CardActions>
           {user._id === memory.user._id && (
+            <Button size="small" onClick={handleDelete}>
+              Delete
+            </Button>
+          )}
+          {deleteConfirmation && (
             <div>
-              <button onClick={handleDelete}>Delete</button>
-              {deleteConfirmation && (
-                <div>
-                  <p>Are you sure you want to delete this memory?</p>
-                  <button onClick={handleConfirmDelete}>Yes</button>
-                  <button onClick={() => setDeleteConfirmation(false)}>No</button>
-                </div>
-              )}
-              <button onClick={handleStartEdit}>Edit</button>
+              <p>Are you sure you want to delete this memory?</p>
+              <Button onClick={handleConfirmDelete}>Yes</Button>
+              <Button onClick={() => setDeleteConfirmation(false)}>No</Button>
             </div>
           )}
-
-          <button onClick={handleLike}>Like</button>
-          <span>Likes: {likesCount}</span>
-        </div>
-      )}
-    </div>
-  )
-}
+          <Button size="small" onClick={handleStartEdit}>
+            Edit
+          </Button>
+          {isEditing || editedMemoryId === memory._id ? (
+            <div>
+              <textarea value={editedMemoryText} onChange={e => setEditedMemoryText(e.target.value)} />
+              <Button onClick={handleConfirmEdit}>Save Edit</Button>
+            </div>
+          ) : (
+            <Button size="small" onClick={handleLike}>
+              {liked ? <FavoriteIcon color="#dd2c00" /> : <FavoriteIcon />}
+            </Button>
+          )}
+          <Typography variant="subtitle2">{likesCount}</Typography>
+        </CardActions>
+      </Card>
+  );
+};
 export default MemoryCard

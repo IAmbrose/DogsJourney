@@ -13,22 +13,22 @@ const DogProfileCard = ({ allUserDogProfile, currentUserDogProfile }) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
             <CardActionArea onClick={() => handleViewMemories(dogProfile.user._id)}>
-                {dogProfile.imageUrl && (
+                {dogProfile.imageURL && (
                     <CardMedia
                         component="img"
-                        height="140"
-                        image={dogProfile.imageUrl}
+                        sx={{ objectFit: 'contain', height: 230}}
+                        image={dogProfile.imageURL}
                         alt={`${dogProfile.name}'s image`}
                     />
                 )}
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography variant="h5">
                         {dogProfile.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2">
                         {dogProfile.description}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="#757575">
                         Owner: {dogProfile.user.name}
                     </Typography>
                 </CardContent>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getAllDogProfile } from '../../Utilities/users-service'
 import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
+import { Grid, Typography } from '@mui/material';
 
 const DogProfilePage = () => {
     const [allUserDogProfiles, setAllUserDogProfiles] = useState([]);
@@ -19,13 +20,18 @@ const DogProfilePage = () => {
 
   return (
     <div>
-        <h1>DogProfilePage</h1>
+        <Grid container direction="column" justifyContent="center" alignItems="center">
+        <Grid item>
+          <Typography variant="h3" sx={{mb: 2, mt: 2}}>Dog Profile Page</Typography>
+        </Grid>
+        <Grid container spacing={2} justifyContent="center">
         {allUserDogProfiles.map((allUserDogProfile) => (
-            <DogProfileCard
-                key={allUserDogProfile._id}
-                allUserDogProfile={allUserDogProfile}
-                />
+          <Grid item key={allUserDogProfile._id} xs={12} sx={{ mt: 2 }}>
+            <DogProfileCard allUserDogProfile={allUserDogProfile} />
+          </Grid>
         ))}
+        </Grid>
+      </Grid>
     </div>
   )
 }

@@ -37,19 +37,15 @@ export default function LoginForm({ setUser }) {
         px: 4,
         py: 6,
         marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
       }}
     >
-      <Typography component="h1" variant="h5">
+      <Typography variant="h5" align="center">
         Sign In
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column' }}>
         <TextField
           margin="normal"
           required
-          fullWidth
           id="email"
           label="Email Address"
           name="email"
@@ -61,7 +57,6 @@ export default function LoginForm({ setUser }) {
         <TextField
           margin="normal"
           required
-          fullWidth
           name="password"
           label="Password"
           type="password"

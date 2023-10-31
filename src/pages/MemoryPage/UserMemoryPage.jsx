@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMemoriesByUser, getUserDetails } from '../../Utilities/users-service'; 
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
+import { Grid, Typography } from '@mui/material';
 
 
 const UserMemoryPage = ({ user }) => {
@@ -37,13 +38,16 @@ const UserMemoryPage = ({ user }) => {
   return (
     <div>
       <h1>Memories for {userName}</h1>
-      {memories.map((memory) => (
-        <MemoryCard
-          key={memory._id}
-          memory={memory}
-          user = {user}
-        />
-      ))}
+      <Grid container spacing={2}>
+          {memories.map((memory) => (
+            <Grid item key={memory._id}>
+            <MemoryCard
+              memory={memory}
+              user = {user}
+            />
+          </Grid>
+          ))}
+      </Grid>
     </div>
   );
 }

@@ -22,7 +22,7 @@ const DogProfilePage = () => {
     <div>
         <Grid container direction="column" justifyContent="center" alignItems="center">
         <Grid item>
-          <Typography variant="h3" sx={{mb: 2, mt: 2}}>Dog Profile Page</Typography>
+          <Typography variant="h3" fontWeight="bold" sx={{mb: 2, mt: 2}}>Profiles</Typography>
         </Grid>
         <Grid container spacing={2} justifyContent="center">
         {allUserDogProfiles.map((allUserDogProfile) => (

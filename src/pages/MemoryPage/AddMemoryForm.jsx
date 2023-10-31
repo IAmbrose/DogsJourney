@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { addMemory } from '../../Utilities/users-service'
+import { Button, Box } from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 const AddMemoryForm = ({ onMemoryAdded }) => {
     const [newMemoryText, setNewMemoryText] = useState('');
@@ -16,20 +18,22 @@ const AddMemoryForm = ({ onMemoryAdded }) => {
       };
 
   return (
-    <div>
-      <h2>Add a Memory</h2>
-      <form onSubmit={handleAddMemory}>
-      <div>
-        <label>Memory Text:</label>
-        <textarea
-            value={newMemoryText}
-            onChange={(e) => setNewMemoryText(e.target.value)}
-            required
+      <Box component="form" onSubmit={handleAddMemory} sx={{ display: 'flex', flexDirection: 'column' }}>
+        <TextField
+          fullWidth
+          multiline
+          label="Memory Text"
+          value={newMemoryText}
+          onChange={(e) => setNewMemoryText(e.target.value)}
+          required
         />
-        </div>
-        <button type="submit">Add Memory</button>
-      </form>
-    </div>
+        <Button 
+        type="submit"
+        variant="contained"
+        >
+        Add Memory
+        </Button>
+      </Box>
   );
 };
 

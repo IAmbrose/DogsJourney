@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { likeMemory, getLikes } from '../../Utilities/users-service'
-import { Card, CardContent, CardActions, CardMedia, Typography, Button, Grid } from '@mui/material';
+import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TextField from '@mui/material/TextField';
 
@@ -69,9 +69,9 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
-          alt="Memory Image"
+          sx={{ objectFit: 'contain', height: 230}}
           image={memory.imageURL}
-          sx={{ objectFit: 'contain', height: 230 }}
+          alt="Memory Image"
         />
         <CardContent>
           <Typography variant="h5">
@@ -119,7 +119,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
                   <Button size="small" onClick={handleLike}>
                     {liked ? <FavoriteIcon color='disabled'/> : <FavoriteIcon sx={{ color: 'red' }}/>}
                   </Button>
-                  <Typography variant="subtitle2">{likesCount}</Typography>
+                  <Typography variant="BUTTON">{likesCount}</Typography>
                 </div>
               )}
             </>

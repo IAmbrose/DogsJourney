@@ -20,13 +20,10 @@ export default function NavBar ({ user, setUser }) {
             </Typography>
           </Link>
           <Link to="/memory" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
-            MemoryPage
+            MyMemory
           </Link>
           <Link to="/dogprofiles" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
-            Dog Profiles Page
-          </Link>
-          <Link to="/upload" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
-            Upload
+            Profiles
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Typography variant="h7" style={{ margin: '0 10px' }}>Welcome back, {user.name}!</Typography>

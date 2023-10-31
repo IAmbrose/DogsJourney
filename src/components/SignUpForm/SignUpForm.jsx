@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { signUp } from '../../Utilities/users-service';
-import { TextField, Button, Grid, Box, Typography } from '@mui/material';
+import { TextField, Button, Container, Box, Typography } from '@mui/material';
 
 
 export default class SignUpForm extends Component {
@@ -37,8 +37,7 @@ export default class SignUpForm extends Component {
       render() {
         const disable = this.state.password !== this.state.confirm;
         return (
-        <Grid container justifyContent="center">
-        <Grid item xs={6}>
+          <Container maxWidth="md">
           <Box
             sx={{
               boxShadow: 3,
@@ -47,58 +46,59 @@ export default class SignUpForm extends Component {
               mt: 5,
             }}
           >
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
-            <form autoComplete="off" onSubmit={this.handleSubmit}>
-              <TextField
-                label="Name"
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={this.handleChange}
-                required
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Email"
-                type="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-                required
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Password"
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                required
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Confirm"
-                type="password"
-                name="confirm"
-                value={this.state.confirm}
-                onChange={this.handleChange}
-                required
-                fullWidth
-                margin="normal"
-              />
-              <Button type="submit" disabled={disable} variant="contained" fullWidth>
-                SIGN UP
-              </Button>
-            </form>
-            <p style={{ color: 'red', textAlign: 'center' }}>{this.state.error}</p>
+            <Typography component="h1" variant="h5" align="center">
+              Sign Up
+            </Typography>
+              <Box component="form" onSubmit={this.handleSubmit} sx={{ display: 'flex', flexDirection: 'column' }}>
+                <TextField
+                  label="Name"
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  required
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Email"
+                  type="email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  required
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Password"
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  required
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Confirm"
+                  type="password"
+                  name="confirm"
+                  value={this.state.confirm}
+                  onChange={this.handleChange}
+                  required
+                  fullWidth
+                  margin="normal"
+                />
+                <Button type="submit" variant="contained" fullWidth>
+                  SIGN UP
+                </Button>
+              </Box>
+            <Typography variant="body2" color="error" align="center" sx={{ mt: 2 }}>
+              {this.state.error}
+            </Typography>
           </Box>
-        </Grid>
-      </Grid>
-    );
+        </Container>
+      );
+    }
   }
-}

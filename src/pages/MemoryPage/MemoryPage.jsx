@@ -5,6 +5,7 @@ import AddMemoryForm from './AddMemoryForm';
 import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
 import AddDogProfileForm from '../DogProfilePage/AddDogProfileForm';
 import DogTrickCard from '../../components/DogTrickCard/DogTrickCard';
+import { Grid, Button, Typography } from '@mui/material';
 
 const MemoryPage = ({ user }) => {
   const [memories, setMemories] = useState([]);
@@ -44,6 +45,7 @@ const MemoryPage = ({ user }) => {
     try {
       const data = await getAllMemories();
       setMemories(data);
+      setShowAddMemoryForm(false);
     } catch (error) {
       console.error('Error fetching memories:', error);
     }
@@ -93,48 +95,50 @@ const MemoryPage = ({ user }) => {
   };
 
   return (
-    <div>
-      <div>
+    <Grid container spacing={2}>
+      <Grid item xs={8}>
+        <Typography variant='h5' fontWeight="bold" mt={2}>My Dog Profile</Typography>
         {currentUserDogProfiles.map((currentUserDogProfile) => (
           <DogProfileCard
           key={currentUserDogProfile._id}
           currentUserDogProfile={currentUserDogProfile}
-          />
-          ))}
-      </div>
-      {currentUserDogProfiles.length === 0 && (
-        <button onClick={toggleAddDogProfileForm}>Add Dog Profile</button>
-      )}
-        {showAddDogProfileForm && (
-          <AddDogProfileForm
-            onDogProfileAdded={handleDogProfileAdded} />
-        )}
-      <h1>My Memory Page</h1>
-
-      <div>
-        <button onClick={toggleAddMemoryForm}>Add Memory</button>
-        {showAddMemoryForm && (
-        <AddMemoryForm 
-        onMemoryAdded={handleMemoryAdded}
-        />
-        )}
-        {memories.map((memory) => (
-          <MemoryCard 
-          key={memory._id} 
-          memory={memory}
-          onDeleteMemory={handleDeleteMemory}
-          onConfirmEdit={handleConfirmEdit}
           user={user}
           />
-        ))}
-      </div>
-      <div>
+          ))}
+        <Typography variant='h5' fontWeight="bold" mt={2}>My Memories</Typography>
+        {currentUserDogProfiles.length === 0 && (
+          <Button onClick={toggleAddDogProfileForm}>Add Dog Profile</Button>
+        )}
+          {showAddDogProfileForm && (
+            <AddDogProfileForm
+              onDogProfileAdded={handleDogProfileAdded} />
+          )}
+          <Button onClick={toggleAddMemoryForm}>Add Memory</Button>
+          {showAddMemoryForm && (
+          <AddMemoryForm 
+          onMemoryAdded={handleMemoryAdded}
+          />
+          )}
+          <Grid container spacing={2}>
+              {memories.map((memory) => (
+                <Grid item key={memory._id}>
+                <MemoryCard 
+                memory={memory}
+                onDeleteMemory={handleDeleteMemory}
+                onConfirmEdit={handleConfirmEdit}
+                user={user}
+                />
+                </Grid>
+              ))}
+          </Grid>
+      </Grid>
+      <Grid item xs={4}>
         <DogTrickCard 
         user={user}
         onMemoryAdded={handleMemoryAdded}
          />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   )
 }
 

@@ -3,12 +3,11 @@ import { getAllDogTricks, updateDogTrick, addMemory } from '../../Utilities/user
 import AddDogTrickForm from '../AddDogTrickForm/AddDogTrickForm';
 import Checkbox from '@mui/material/Checkbox';
 import { Button, Box, Typography } from "@mui/material";
-import { Grid } from 'react-loader-spinner';
+
 
 const DogTrickCard = ({ user, onMemoryAdded }) => {
     const [dogTricks, setDogTricks] = useState([]);
     const [showAddDogTrickForm, setShowAddDogTrickForm] = useState(false)
-    console.log(user)
 
     useEffect(() => {
       const fetchDogTricks = async () => {

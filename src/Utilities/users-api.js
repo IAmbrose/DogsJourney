@@ -7,6 +7,7 @@ const MEMORIES_URL = "/api/memories";
 const DOGPROFILE_URL = "/api/dogProfiles"
 const DOGTRICKS_URL = "/api/dogTricks"
 
+
 export async function signUp(userData) {
   const res = await fetch(BASE_URL, {
     method: "POST",

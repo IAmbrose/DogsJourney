@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getAllDogTricks, updateDogTrick, addMemory } from '../../Utilities/users-service'
 import AddDogTrickForm from '../AddDogTrickForm/AddDogTrickForm';
 import Checkbox from '@mui/material/Checkbox';
+import { Button, Box, Typography } from "@mui/material";
+import { Grid } from 'react-loader-spinner';
 
 const DogTrickCard = ({ user, onMemoryAdded }) => {
     const [dogTricks, setDogTricks] = useState([]);
@@ -58,6 +60,7 @@ const DogTrickCard = ({ user, onMemoryAdded }) => {
     try {
       const data = await getAllDogTricks();
       setDogTricks(data);
+      setShowAddDogTrickForm(false)
     } catch (error) {
       console.error('Error fetchging dog tricks:', error)
     }
@@ -73,32 +76,36 @@ const DogTrickCard = ({ user, onMemoryAdded }) => {
   }
 
   return (
-    <div>
-      <h2>Dog Tricks</h2>
+    <Box sx={{ border: 5, borderRadius: 4, borderColor: 'white' }}>
+      <Box sx={{ p: 2 }}>
+      <Typography variant='h5' fontWeight="bold">Dog Tricks Checklist</Typography>
       {user.isAdmin && (
         <div>
-          <button onClick={toggleAddDogTrickForm}>Add Dog Trick</button>
+          <Button onClick={toggleAddDogTrickForm}>Add Dog Trick</Button>
           {showAddDogTrickForm && (
               <AddDogTrickForm onDogTrickAdded={handleDogTrickAdded} />
           )}
         </div>
         )}
-      <div className="dog-trick-cards">
+      <div>
         {dogTricks.map((trick) => (
           <div className="dog-trick-card" key={trick._id}>
-            <h3>{trick.trick_name}</h3>
-            <Checkbox
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Checkbox
                 checked={
                   (trick.tricksCompleted.find((completion) => completion.user === user._id) || { completed: false }).completed
                 }
                 onChange={() => toggleDogTrickCompleted(trick._id)}
               />
-            <p>Description: {trick.description}</p>
-            <p>Difficulty Level: {trick.difficulty_level}</p>
+            <Typography variant='h6' fontWeight="bold">{trick.trick_name}</Typography>
+            </Box>
+            <Typography variant='body1'>Description: {trick.description}</Typography>
+            <Typography variant='body1'>Difficulty Level: {trick.difficulty_level}</Typography>
           </div>
         ))}
       </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

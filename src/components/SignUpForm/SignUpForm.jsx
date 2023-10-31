@@ -35,7 +35,6 @@ export default class SignUpForm extends Component {
       };
 
       render() {
-        const disable = this.state.password !== this.state.confirm;
         return (
           <Container maxWidth="md">
           <Box

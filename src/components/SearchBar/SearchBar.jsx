@@ -51,7 +51,7 @@ const SearchBar = () => {
 
   return (
     <Grid container justifyContent="center">
-       <Grid item xs={5} sx={{ mt: 2 }}>
+       <Grid item xs={12} sx={{ mt: 2 }}>
             <Autocomplete
                 options={dogBreeds}
                 value={searchQuery}

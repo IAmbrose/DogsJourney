@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMemoriesByUser, getUserDetails } from '../../Utilities/users-service'; 
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 
 const UserMemoryPage = ({ user }) => {

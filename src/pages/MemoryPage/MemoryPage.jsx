@@ -84,6 +84,7 @@ const MemoryPage = ({ user }) => {
     try {
       const data = await getDogProfile();
       setCurrentUserDogProfiles(data);
+      setShowAddMemoryForm(false);
     } catch (error) {
       console.error('Error fetching dog profile:', error);
     }

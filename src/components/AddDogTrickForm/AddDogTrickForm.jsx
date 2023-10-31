@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { addDogTrick} from '../../Utilities/users-service'
+import { Button, Box } from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 const AddDogTrickForm = ({onDogTrickAdded}) => {
     const [newDogTrickName, setNewDogTrickName] = useState('')
@@ -21,32 +23,36 @@ const AddDogTrickForm = ({onDogTrickAdded}) => {
 
 
   return (
-    <div>
-      <h2>Add a Dog Trick</h2>
-      <form onSubmit={handleAddDogTrick}>
-      <div>
-        <input
+    <Box component="form" onSubmit={handleAddDogTrick} sx={{ display: 'flex', flexDirection: 'column' }}>
+        <TextField
+            fullWidth
             value={newDogTrickName}
-            placeholder='Fill dog trick name'
+            label='Fill dog trick name'
             onChange={(e) => setNewDogTrickName(e.target.value)}
             required
             />
-        <input
+        <TextField
+            fullWidth
+            multiline
             value={newDogTrickDesc}
-            placeholder='Fill dog trick description'
+            label='Fill dog trick description'
             onChange={(e) => setNewDogTrickDesc(e.target.value)}
             required
             />
-        <input
+        <TextField
+            fullWidth
             value={newDogTrickDiff}
-            placeholder='Fill dog trick difficulty level'
+            label='Fill dog trick difficulty level'
             onChange={(e) => setNewDogTrickDiff(e.target.value)}
             required
             />
-        </div>
-        <button type="submit">Add Dog Trick</button>
-      </form>
-    </div>
+        <Button 
+        type="submit" 
+        variant="contained"
+        >
+          Add Dog Trick
+          </Button>
+    </Box>
   );
 };
 

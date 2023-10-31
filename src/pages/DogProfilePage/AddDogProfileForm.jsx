@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { addDogProfile } from '../../Utilities/users-service'
+import { Button, Box } from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 const AddDogProfileForm = ({onDogProfileAdded}) => {
     const [newDogProfileName, setNewDogProfileName] = useState('');
@@ -20,26 +22,29 @@ const AddDogProfileForm = ({onDogProfileAdded}) => {
 
 
   return (
-    <div>
-      <h2>Add a Profile</h2>
-      <form onSubmit={handleAddProfile}>
-      <div>
-        <input
-            value={newDogProfileName}
-            placeholder='Fill dog name'
-            onChange={(e) => setNewDogProfileName(e.target.value)}
-            required
-            />
-        <label>Dog Description:</label>
-        <textarea
-            value={newDogProfileDesc}
-            onChange={(e) => setNewDogProfileDesc(e.target.value)}
-            required
+      <Box component="form" onSubmit={handleAddProfile} sx={{ display: 'flex', flexDirection: 'column' }}>
+        <TextField
+          fullWidth
+          label="Fill Dog Name"
+          value={newDogProfileName}
+          onChange={(e) => setNewDogProfileName(e.target.value)}
+          required
+          />
+        <TextField
+          fullWidth
+          multiline
+          label="Dog Description"
+          value={newDogProfileDesc}
+          onChange={(e) => setNewDogProfileDesc(e.target.value)}
+          required
         />
-        </div>
-        <button type="submit">Add Profile</button>
-      </form>
-    </div>
+        <Button 
+        type="submit"
+        variant="contained"
+        >
+          Add Profile
+          </Button>
+      </Box>
   );
 };
 

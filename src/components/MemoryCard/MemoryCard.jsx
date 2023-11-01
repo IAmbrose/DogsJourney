@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import TextField from '@mui/material/TextField';
 import axios from "axios";
 
-const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
+const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user, currentUserDogProfiles }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedMemoryText, setEditedMemoryText] = useState(memory.text);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -101,14 +101,20 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
           alt="Memory Image"
         />
         <CardContent>
-          <Typography variant="h5">
-            {memory.user.name}
+        {currentUserDogProfiles?.map((dog, index) => (
+          <Typography key={index} variant="h5">
+              {dog.name}
           </Typography>
+          ))}
           <Typography variant="body1">
             {memory.text}
           </Typography>
           <Typography variant="caption" color="#757575">
             Posted on: {formatDate(memory.createdAt)}
+          </Typography>
+          <br />
+          <Typography variant="caption" color="#757575">
+            Owner: {memory.user.name}
           </Typography>
         </CardContent>
         <CardActions>

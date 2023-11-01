@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllMemories, deleteMemory, updateMemory, getDogProfile } from '../../Utilities/users-service'
+import { getAllMemories, deleteMemory, updateMemory, getDogProfile, updateDogProfile } from '../../Utilities/users-service'
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
 import AddMemoryForm from './AddMemoryForm';
 import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
@@ -67,16 +67,21 @@ const MemoryPage = ({ user }) => {
   }
 
 
-  const handleConfirmEdit = async (memoryId, updatedText, updatedImageURL) => {
-    if (updatedText.trim() === "") {
-      console.error('Edited text cannot be empty');
+  const handleDogProfileConfirmEdit = async (dogProfileId, updatedName, updatedDescription, updatedImageURL) => {
+    if (updatedName.trim() === "") {
+      console.error('Edited name cannot be empty');
+      return;
+    }
+    
+    if (updatedDescription.trim() === "") {
+      console.error('Edited desciption cannot be empty');
       return;
     }
 
     try {
-      await updateMemory(memoryId, updatedText, updatedImageURL);
-      const updatedMemories = await getAllMemories();
-      setMemories(updatedMemories);
+      await updateDogProfile(dogProfileId, updatedName, updatedDescription, updatedImageURL);
+      const updatedDogProfile = await getDogProfile();
+      setCurrentUserDogProfiles(updatedDogProfile);
     } catch (error) {
       console.error('Error editing memory:', error);
     }
@@ -97,6 +102,22 @@ const MemoryPage = ({ user }) => {
     setShowAddDogProfileForm(!showAddDogProfileForm);
   };
 
+  const handleConfirmEdit = async (memoryId, updatedText, updatedImageURL) => {
+    if (updatedText.trim() === "") {
+      console.error('Edited text cannot be empty');
+      return;
+    }
+
+    try {
+      await updateMemory(memoryId, updatedText, updatedImageURL);
+      const updatedMemories = await getAllMemories();
+      setMemories(updatedMemories);
+    } catch (error) {
+      console.error('Error editing memory:', error);
+    }
+  }
+
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
@@ -105,6 +126,7 @@ const MemoryPage = ({ user }) => {
           <DogProfileCard
           key={currentUserDogProfile._id}
           currentUserDogProfile={currentUserDogProfile}
+          onConfirmEdit={handleDogProfileConfirmEdit}
           user={user}
           />
           ))}
@@ -130,6 +152,7 @@ const MemoryPage = ({ user }) => {
                 onDeleteMemory={handleDeleteMemory}
                 onConfirmEdit={handleConfirmEdit}
                 user={user}
+                currentUserDogProfiles={currentUserDogProfiles}
                 />
                 </Grid>
               ))}

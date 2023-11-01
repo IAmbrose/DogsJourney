@@ -511,3 +511,31 @@ export async function getUserDetails() {
     );
   }
 }
+
+export async function updateDogProfile(dogProfileId, updatedName, updatedDescription, updatedImageURL) {
+  try {
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `${DOGPROFILE_URL}/${dogProfileId}`,
+      {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({ name:updatedName, description: updatedDescription, imageURL: updatedImageURL }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("Error updating dog profile");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error updating dog profile: ${error.message}`);
+  }
+}

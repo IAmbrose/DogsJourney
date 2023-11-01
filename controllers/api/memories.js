@@ -20,6 +20,9 @@ const addMemory = async (req, res) => {
   
     try {
       const newMemory = await Memory.create({ ...memoryData, user: user });
+      if (!newMemory) {
+        return res.status(404).json({ message: 'Memories not found.' });
+      }
       res.status(201).json(newMemory);
     } catch (error) {
       res.status(500).json({ error });

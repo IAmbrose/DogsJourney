@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMemoriesByUser, getUserDetails } from '../../Utilities/users-service'; 
+import { getMemoriesByUser, getAllDogProfile } from '../../Utilities/users-service'; 
 import MemoryCard from '../../components/MemoryCard/MemoryCard';
 import { Grid } from '@mui/material';
 
@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 const UserMemoryPage = ({ user }) => {
   const { userId } = useParams(); 
   const [memories, setMemories] = useState([]);
-  const [userName, setUserName] = useState('')
+  const [selectedUserDogProfile, setSelectedUserDogProfile] = useState([]);
 
   useEffect(() => {
     const fetchMemories = async () => {
@@ -20,24 +20,24 @@ const UserMemoryPage = ({ user }) => {
       }
     };
 
-    const fetchUserName = async () => {
+
+    const fetchUserDogProfile = async () => {
       try {
-        const users = await getUserDetails();
-        const selectedUser = users.users.find(user => user._id === userId); 
-        setUserName(selectedUser.name)
+        const dogProfiles = await getAllDogProfile();
+        const selectedProfile = dogProfiles.find((profile) => profile.user._id === userId);
+        setSelectedUserDogProfile(selectedProfile);
       } catch (error) {
-        console.error('Error fetching user details:', error);
+        console.error('Error fetching user dog profile:', error);
       }
     };
-    fetchUserName();
     fetchMemories();
+    fetchUserDogProfile();
   }, [userId]);
 
-  
 
   return (
     <div>
-      <h1>Memories for {userName}</h1>
+      <h1>Memories of {selectedUserDogProfile.name}</h1>
       <Grid container spacing={2}>
           {memories.map((memory) => (
             <Grid item key={memory._id}>

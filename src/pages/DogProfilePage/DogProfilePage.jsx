@@ -3,7 +3,7 @@ import { getAllDogProfile } from '../../Utilities/users-service'
 import DogProfileCard from '../../components/DogProfileCard/DogProfileCard';
 import { Grid, Typography } from '@mui/material';
 
-const DogProfilePage = () => {
+const DogProfilePage = ({ user }) => {
     const [allUserDogProfiles, setAllUserDogProfiles] = useState([]);
 
     useEffect(() => {
@@ -27,7 +27,10 @@ const DogProfilePage = () => {
         <Grid container spacing={2}>
         {allUserDogProfiles.map((allUserDogProfile) => (
           <Grid item key={allUserDogProfile._id}>
-            <DogProfileCard allUserDogProfile={allUserDogProfile} />
+            <DogProfileCard 
+            allUserDogProfile={allUserDogProfile} 
+            user={user}
+            />
           </Grid>
         ))}
         </Grid>

@@ -136,3 +136,8 @@ export async function signUp(userData) {
     const data = await usersAPI.getUserDetails();
     return data;
   }
+
+  export async function updateDogProfile(dogProfileId, updatedName, updatedDescription, updatedImageURL) {
+    const updatedDogProfile = await usersAPI.updateDogProfile(dogProfileId, updatedName, updatedDescription, updatedImageURL);
+    return updatedDogProfile;
+  }

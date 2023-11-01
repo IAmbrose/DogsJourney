@@ -14,7 +14,7 @@ import UserMemoryPage from "../MemoryPage/UserMemoryPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-  console.log(user)
+
   return (
     <>
       <main className="App">
@@ -24,7 +24,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/memory" element={<MemoryPage user={user}/>} />
-              <Route path="/dogprofiles" element={<DogProfilePage />} />
+              <Route path="/dogprofiles" element={<DogProfilePage user={user}/>} />
               <Route path="/memory/:userId" element={<UserMemoryPage user={user}/>} />
             </Routes>
           </>

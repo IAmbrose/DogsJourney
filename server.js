@@ -69,7 +69,6 @@ const upload = Multer({
   storage,
 });
 
-app.use(cors());
 
 app.post("/upload", upload.single("my_file"), async (req, res) => {
   try {

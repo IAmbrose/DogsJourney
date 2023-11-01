@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { addMemory } from '../../Utilities/users-service'
-import { Button, Box } from "@mui/material";
+import { Button, Box, CircularProgress } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
 const AddMemoryForm = ({ onMemoryAdded }) => {
     const [newMemoryText, setNewMemoryText] = useState('');
     const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false)
 
     const handleSelectFile = (e) => setFile(e.target.files[0]);
     const handleUpload = async () => {
+      setLoading(true);
       try {
         const data = new FormData();
         data.append("my_file", file);
@@ -17,7 +19,9 @@ const AddMemoryForm = ({ onMemoryAdded }) => {
         return(response.data.secure_url);
       } catch (error) {
         alert(error.message);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
 
     const handleAddMemory = async (e) => {
@@ -60,6 +64,7 @@ const AddMemoryForm = ({ onMemoryAdded }) => {
         >
         Add Memory
         </Button>
+        {loading && <CircularProgress color='success'/>}
       </Box>
   );
 };

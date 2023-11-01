@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { addDogProfile } from '../../Utilities/users-service'
-import { Button, Box } from "@mui/material";
+import { Button, Box, CircularProgress } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
@@ -8,10 +8,12 @@ const AddDogProfileForm = ({onDogProfileAdded}) => {
     const [newDogProfileName, setNewDogProfileName] = useState('');
     const [newDogProfileDesc, setNewDogProfileDesc] = useState('');
     const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false)
 
 
     const handleSelectFile = (e) => setFile(e.target.files[0]);
     const handleUpload = async () => {
+      setLoading(true);
       try {
         const data = new FormData();
         data.append("my_file", file);
@@ -19,9 +21,10 @@ const AddDogProfileForm = ({onDogProfileAdded}) => {
         return(response.data.secure_url);
       } catch (error) {
         alert(error.message);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
-
 
   const handleAddProfile = async (e) => {
       e.preventDefault();
@@ -71,6 +74,7 @@ const AddDogProfileForm = ({onDogProfileAdded}) => {
         >
           Add Profile
           </Button>
+          {loading && <CircularProgress color='success'/>}
       </Box>
   );
 };

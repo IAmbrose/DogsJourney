@@ -86,7 +86,7 @@ const MemoryPage = ({ user }) => {
     try {
       const data = await getDogProfile();
       setCurrentUserDogProfiles(data);
-      setShowAddMemoryForm(false);
+      setShowAddDogProfileForm(false);
     } catch (error) {
       console.error('Error fetching dog profile:', error);
     }
@@ -122,9 +122,9 @@ const MemoryPage = ({ user }) => {
           onMemoryAdded={handleMemoryAdded}
           />
           )}
-          <Grid container spacing={2}>
+          <Grid container spacing={2} mb={2}>
               {memories.map((memory) => (
-                <Grid item key={memory._id}>
+                <Grid item key={memory._id} mt={2}>
                 <MemoryCard 
                 memory={memory}
                 onDeleteMemory={handleDeleteMemory}

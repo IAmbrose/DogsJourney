@@ -20,13 +20,13 @@ const DogProfilePage = () => {
 
   return (
     <div>
-        <Grid container direction="column" justifyContent="center" alignItems="center">
+        <Grid>
         <Grid item>
           <Typography variant="h3" fontWeight="bold" sx={{mb: 2, mt: 2}}>Profiles</Typography>
         </Grid>
-        <Grid container spacing={2} justifyContent="center">
+        <Grid container spacing={2}>
         {allUserDogProfiles.map((allUserDogProfile) => (
-          <Grid item key={allUserDogProfile._id} xs={12} sx={{ mt: 2 }}>
+          <Grid item key={allUserDogProfile._id}>
             <DogProfileCard allUserDogProfile={allUserDogProfile} />
           </Grid>
         ))}

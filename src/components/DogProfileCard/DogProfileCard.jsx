@@ -16,7 +16,7 @@ const DogProfileCard = ({ allUserDogProfile, currentUserDogProfile }) => {
                 {dogProfile.imageURL && (
                     <CardMedia
                         component="img"
-                        sx={{ objectFit: 'contain', height: 230}}
+                        sx={{ objectFit: 'fill', height: 400}}
                         image={dogProfile.imageURL}
                         alt={`${dogProfile.name}'s image`}
                     />

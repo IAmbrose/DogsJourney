@@ -25,9 +25,6 @@ export default function NavBar ({ user, setUser }) {
           <Link to="/dogprofiles" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
             Profiles
           </Link>
-          <Link to="/upload" style={{ color: 'white', textDecoration: 'none', margin: '0 10px' }}>
-            Gallery
-          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Typography variant="h7" style={{ margin: '0 10px' }}>Welcome back, {user.name}!</Typography>
           <Link to="/" onClick={handleLogOut} style={{ color: 'white', textDecoration: 'none', marginLeft: 'auto' }}>

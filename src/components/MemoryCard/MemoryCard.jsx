@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { likeMemory, getLikes } from '../../Utilities/users-service'
-import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
+import { Card, CardContent, CardActions, CardMedia, Typography, Button, CircularProgress  } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TextField from '@mui/material/TextField';
 import axios from "axios";
@@ -12,6 +12,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
     const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => { 
       const getLikesCount = async () => {
@@ -39,6 +40,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
 
     const handleSelectFile = (e) => setFile(e.target.files[0]);
     const handleUpload = async () => {
+      setLoading(true);
       try {
         const data = new FormData();
         data.append("my_file", file);
@@ -46,7 +48,9 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
         return(response.data.secure_url);
       } catch (error) {
         alert(error.message);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
     
     const handleEdit = () => {
@@ -54,10 +58,17 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
     }
   
     const handleConfirmEdit = async () => {
-      const updatedImageURL = await handleUpload();
-      onConfirmEdit(memory._id, editedMemoryText, updatedImageURL);
-      setIsEditing(false);
-      setFile(null);
+      let updatedImageURL = memory.imageURL
+      if (file) {
+      updatedImageURL = await handleUpload();
+      }
+      try {
+        onConfirmEdit(memory._id, editedMemoryText, updatedImageURL);
+        setIsEditing(false);
+        setFile(null);
+      } catch (error) {
+        console.error("Error editing memory:", error);
+        }
     };
 
     const handleLike = async () => {
@@ -85,7 +96,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
-          sx={{ objectFit: 'contain', height: 230}}
+          sx={{ objectFit: 'fill', height:400}}
           image={memory.imageURL}
           alt="Memory Image"
         />
@@ -128,23 +139,24 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
                     onChange={e => setEditedMemoryText(e.target.value)}
                   />
                   <label htmlFor="file" className="btn-grey">
-                    {" "}
-                    select file
-                  </label>
-                  {file && <center> {file.name}</center>}
-                  <input
-                    id="file"
-                    type="file"
-                    onChange={handleSelectFile}
-                    multiple={false}
-                  />
+                  {" "}
+                  select file
+                </label>
+                {file && <center> {file.name}</center>}
+                <input
+                  id="file"
+                  type="file"
+                  onChange={handleSelectFile}
+                  multiple={false}
+                />
                   <Button onClick={() => setIsEditing(false)}>Cancel</Button>
                   <Button onClick={handleConfirmEdit}>Confirm</Button>
+                  {loading && <CircularProgress color='success'/>}
                 </div>
               ) : (
                 <div>
                   <Button size="small" onClick={handleLike}>
-                    {liked ? <FavoriteIcon color='disabled'/> : <FavoriteIcon sx={{ color: 'red' }}/>}
+                    <FavoriteIcon sx={{ color: liked ? 'red' : 'grey' }} />
                   </Button>
                   <Typography variant="BUTTON">{likesCount}</Typography>
                 </div>

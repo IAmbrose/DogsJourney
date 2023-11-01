@@ -87,8 +87,8 @@ export async function signUp(userData) {
     return data;
   }
 
-  export async function updateMemory(memoryId, updatedText) {
-    const updatedMemory = await usersAPI.updateMemory(memoryId, updatedText);
+  export async function updateMemory(memoryId, updatedText, updatedImageURL) {
+    const updatedMemory = await usersAPI.updateMemory(memoryId, updatedText, updatedImageURL);
     return updatedMemory;
   }
 

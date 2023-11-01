@@ -59,7 +59,7 @@ const deleteMemory = async (req, res) => {
         return res.status(404).json({ message: 'Memory not found in your memories.' });
       }
       memoryToUpdate.text = updateData.text;
-      memoryToUpdate.image = updateData.image;
+      memoryToUpdate.imageURL = updateData.imageURL;
 
       await memoryToUpdate.save();
       res.status(200).json({ message: 'Memory updated successfully.' });

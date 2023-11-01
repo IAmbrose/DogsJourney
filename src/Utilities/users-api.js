@@ -255,7 +255,7 @@ export async function deleteMemory(memoryId) {
   }
 }
 
-export async function updateMemory(memoryId, updatedText) {
+export async function updateMemory(memoryId, updatedText, updatedImageURL) {
   try {
     const token = localStorage.getItem("token");
     const headers = {
@@ -268,7 +268,7 @@ export async function updateMemory(memoryId, updatedText) {
       {
         method: "PATCH",
         headers,
-        body: JSON.stringify({ text: updatedText }),
+        body: JSON.stringify({ text: updatedText, imageURL: updatedImageURL }),
       },
     );
 

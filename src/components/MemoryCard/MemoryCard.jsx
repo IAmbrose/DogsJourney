@@ -3,6 +3,7 @@ import { likeMemory, getLikes } from '../../Utilities/users-service'
 import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TextField from '@mui/material/TextField';
+import axios from "axios";
 
 const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -10,6 +11,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
+    const [file, setFile] = useState(null);
 
     useEffect(() => { 
       const getLikesCount = async () => {
@@ -34,14 +36,28 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
       setDeleteConfirmation(false);
     }
 
+
+    const handleSelectFile = (e) => setFile(e.target.files[0]);
+    const handleUpload = async () => {
+      try {
+        const data = new FormData();
+        data.append("my_file", file);
+        const response = await axios.post("http://localhost:3000/upload", data);
+        return(response.data.secure_url);
+      } catch (error) {
+        alert(error.message);
+      } 
+    };
     
     const handleEdit = () => {
       setIsEditing(true);
     }
   
-    const handleConfirmEdit = () => {
-      onConfirmEdit(memory._id, editedMemoryText);
+    const handleConfirmEdit = async () => {
+      const updatedImageURL = await handleUpload();
+      onConfirmEdit(memory._id, editedMemoryText, updatedImageURL);
       setIsEditing(false);
+      setFile(null);
     };
 
     const handleLike = async () => {
@@ -110,6 +126,17 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user }) => {
                     multiline
                     value={editedMemoryText}
                     onChange={e => setEditedMemoryText(e.target.value)}
+                  />
+                  <label htmlFor="file" className="btn-grey">
+                    {" "}
+                    select file
+                  </label>
+                  {file && <center> {file.name}</center>}
+                  <input
+                    id="file"
+                    type="file"
+                    onChange={handleSelectFile}
+                    multiple={false}
                   />
                   <Button onClick={() => setIsEditing(false)}>Cancel</Button>
                   <Button onClick={handleConfirmEdit}>Confirm</Button>

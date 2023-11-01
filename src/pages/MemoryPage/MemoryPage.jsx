@@ -12,6 +12,7 @@ const MemoryPage = ({ user }) => {
   const [currentUserDogProfiles, setCurrentUserDogProfiles] = useState([])
   const [showAddMemoryForm, setShowAddMemoryForm] = useState(false)
   const [showAddDogProfileForm, setShowAddDogProfileForm] = useState(false)
+
   
 
   useEffect(() => {
@@ -65,14 +66,15 @@ const MemoryPage = ({ user }) => {
     }
   }
 
-  const handleConfirmEdit = async (memoryId, updatedText) => {
+
+  const handleConfirmEdit = async (memoryId, updatedText, updatedImageURL) => {
     if (updatedText.trim() === "") {
       console.error('Edited text cannot be empty');
       return;
     }
 
     try {
-      await updateMemory(memoryId, updatedText);
+      await updateMemory(memoryId, updatedText, updatedImageURL);
       const updatedMemories = await getAllMemories();
       setMemories(updatedMemories);
     } catch (error) {

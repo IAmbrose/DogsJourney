@@ -9,6 +9,7 @@
 5. [Deployment](#Deployment)
 6. [Key Challenges](#Key-Challenges)
 7. [Future Developments](#Future-Developments)
+8. [References](#References)
 
 
 ## App Description

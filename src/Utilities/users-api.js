@@ -539,3 +539,5 @@ export async function updateDogProfile(dogProfileId, updatedName, updatedDescrip
     throw new Error(`Error updating dog profile: ${error.message}`);
   }
 }
+
+

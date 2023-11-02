@@ -44,7 +44,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user, currentUserDo
       try {
         const data = new FormData();
         data.append("my_file", file);
-        const response = await axios.post("http://localhost:3000/upload", data);
+        const response = await axios.post("/api/upload", data);
         return(response.data.secure_url);
       } catch (error) {
         alert(error.message);

@@ -63,6 +63,7 @@ const SearchBar = () => {
                     />
                 )}
                 freeSolo
+                onChangeCapture={(e) => setSearchQuery(e.target.value)}
             />
             </Grid>
                 <Button onClick={handleSearch}>

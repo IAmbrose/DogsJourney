@@ -37,7 +37,11 @@ These ERDs facilitated a deeper understanding of how user data, Dog Breeds, Dog 
 
 1. Sign Up & Login as a User:
 
-![image](https://github.com/IAmbrose/DogsJourney/assets/139415730/9414d2fe-08b7-48f9-97a1-b65445d20ae0)
+![image](https://github.com/IAmbrose/DogsJourney/assets/139415730/95476c2f-3cf8-4ca6-a67c-c7914ed6f08f)
+
+
+<img width="397" alt="image" src="https://github.com/IAmbrose/DogsJourney/assets/139415730/699a6e40-8e24-40a6-869a-fc8e88108d92">
+
 
 2. Search for a dog breed, and add it to your wishlist. Users can see the characteristics of the dog as well.
 

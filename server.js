@@ -13,6 +13,9 @@ const dogBreedsRouter = require("./routes/api/dogBreeds")
 const memoriesRouter = require("./routes/api/memories");
 const dogProfilesRouter = require("./routes/api/dogProfiles")
 const dogTricksRouter = require("./routes/api/dogTricks")
+const corsOptions = {
+  origin: 'https://dogsjourney.onrender.com'
+};
 
 
 // cloudinary config
@@ -34,7 +37,7 @@ const app = express();
 
 //* middleware
 app.use(logger("dev"));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "dist")));
 app.use("/api/users", usersRouter);

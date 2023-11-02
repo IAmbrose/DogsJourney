@@ -51,19 +51,23 @@ const SearchBar = () => {
 
   return (
     <Grid container justifyContent="center">
-       <Grid item xs={12} sx={{ mt: 2 }}>
+       <Grid item xs={8} sx={{ mt: 2 }}>
             <Autocomplete
                 options={dogBreeds}
                 value={searchQuery}
                 onChange={(e, newValue) => setSearchQuery(newValue)}
                 renderInput={(params) => (
-                    <TextField {...params} label="Search for dog breed" />
+                    <TextField 
+                    {...params} 
+                    label="Search for dog breed" 
+                    />
                 )}
+                freeSolo
             />
+            </Grid>
                 <Button onClick={handleSearch}>
                     Search
                 </Button>
-            </Grid>
             <Grid item xs={12} sx={{ mt: 2 }}>
                 {loading ? (
                     <CircularProgress color='success'/> 

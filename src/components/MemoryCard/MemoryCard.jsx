@@ -120,7 +120,7 @@ const MemoryCard = ({ memory, onDeleteMemory, onConfirmEdit, user, currentUserDo
         <CardActions>
           {deleteConfirmation ? (
             <div>
-              <Typography>Are you sure you want to delete this memory?</Typography>
+              <Typography color={'error'}>Are you sure you want to delete this memory?</Typography>
               <Button onClick={handleConfirmDelete}>Yes</Button>
               <Button onClick={() => setDeleteConfirmation(false)}>No</Button>
             </div>

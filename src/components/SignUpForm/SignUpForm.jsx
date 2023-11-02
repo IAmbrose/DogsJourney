@@ -43,6 +43,7 @@ export default class SignUpForm extends Component {
               borderRadius: 2,
               p: 4,
               mt: 5,
+              backgroundColor: 'white'
             }}
           >
             <Typography component="h1" variant="h5" align="center">

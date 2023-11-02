@@ -37,6 +37,7 @@ export default function LoginForm({ setUser }) {
         px: 4,
         py: 6,
         marginTop: 8,
+        backgroundColor: 'white'
       }}
     >
       <Typography variant="h5" align="center">

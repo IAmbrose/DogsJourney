@@ -2,6 +2,15 @@
 
 ## Table of Contents
 
+1. [App Description](#App-Description)
+2. [Technologies](#Technologies)
+3. [Project Planning](#Project-Planning)
+4. [App Functionality](#App-Functionality)
+5. [Deployment](#Deployment)
+6. [Key Challenges](#Key-Challenges)
+7. [Future Developments](#Future-Developments)
+
+
 ## App Description
 
 As someone exploring the possibility of getting a dog, I aim to effortlessly browse through various dog breeds and add potential matches to my wishlist. I'm looking for comprehensive characteristics to help identify the perfect breed that aligns with my lifestyle. Moreover, as a dog owner, I wish to create a personalized profile to cherish and record precious memories while tracking my dog's tricks progress. Additionally, I aim to engage with a thriving community to seek advice and share experiences on a platform where fellow users discuss and solve dog-related problems.
@@ -61,3 +70,7 @@ The app is deployed on Render, and you can access it here.
 - **Friend Requests**: Allow users to connect more and add each other as friends.
 - **Dog related events**: Find a way to post dog related events so that users are aware.
 - **Dog parks and shops**: Create a map for dog parks and shops.
+
+## References
+- [Cloudinary Guide](https://cloudinary.com/blog/guest_post/upload-images-to-cloudinary-with-node-js-and-react)
+- [Render CORS guide](https://paragon.ba/en/how-to-deploy-a-mern-application-on-render-com/)
